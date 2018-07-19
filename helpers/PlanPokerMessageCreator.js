@@ -60,6 +60,20 @@ module.exports = {
         };
         return message;
     },
+    createVotingCanceled: function(planPoker){
+        const message = {
+            "text": planPoker.creator + " started a planning poker",
+            "attachments": [
+                {
+                    "text": "Planning: *" + planPoker.title + "*\n_Voting session was canceled._",
+                    "fallback": "Shame... buttons aren't supported in this land",
+                    "callback_id": "plan-poker",
+                    "color": "#3AA3E3",
+                }
+            ]
+        };
+        return message;
+    },
     createManaging: function(planPoker){
         var text = "_Only you can manage the voting!_";
         text += "\nOnce everyone has placed their votes, click *Finish* to end the voting.";

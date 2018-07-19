@@ -1,16 +1,16 @@
-var planPokerList = require('../models/PlanPokerList');
+const planPokerList = require('../models/PlanPokerList');
 const planPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
 const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
 
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
+const express = require('express');
+const router = express.Router();
+const bodyParser = require('body-parser');
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 
 router.post('/', urlencodedParser, function(req, res) {
     res.status(200).end(); // best practice to respond with 200 status
-    var payload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
+    const payload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
     // const payload = req.body.payload;
     const buttonAction = payload.actions[0].value;
     const username = payload.user.name;
@@ -22,7 +22,7 @@ router.post('/', urlencodedParser, function(req, res) {
 });
 
 function executeAction(buttonActionText, username, responseURL){
-    var actionSplit = buttonActionText.split("@@@");
+    const actionSplit = buttonActionText.split("@@@");
     const id = actionSplit[0];
     const action = actionSplit[1];
     const planPoker = planPokerList.get(id);
@@ -34,6 +34,8 @@ function executeAction(buttonActionText, username, responseURL){
             break;
         case 'cancel':
             planPokerList.remove(id);
+            message = planPokerMessageCreator.createVotingCanceled(planPoker);
+            planPokerSlackComms.deleteEphemeral(responseURL);
             break;
         case 'finish':
             const finishedResult = planPoker.finish();

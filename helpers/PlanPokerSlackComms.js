@@ -1,10 +1,12 @@
 const slack = require('slack');
 const request = require('request');
 
+const token = '***REMOVED***';
+
 module.exports = {
     postMessage: function (planPoker, message) {
         slack.chat.postMessage({
-            token: '***REMOVED***',
+            token: token,
             channel: planPoker.channel,
             text: message.text,
             attachments: message.attachments
@@ -16,16 +18,23 @@ module.exports = {
     },
      updateMessage: function(channel, ts, message){
         slack.chat.update({
-            token: '***REMOVED***',
+            token: token,
             channel: channel,
             ts: ts,
             text: message.text,
             attachments: message.attachments
         }).then().catch(console.log);
     },
+    deleteMessage: function (channel, ts){
+        slack.chat.delete({
+            token: token,
+            channel: channel,
+            ts: ts,
+        }).then().catch(console.log);
+    },
     postEphemeral: function(userId, planPoker, message){
         slack.chat.postEphemeral({
-            token: '***REMOVED***',
+            token: token,
             channel: planPoker.channel,
             text: message.text,
             attachments: message.attachments,
