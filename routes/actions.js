@@ -1,11 +1,10 @@
 var planPokerList = require('../models/PlanPokerList');
 const planPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
+const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
 
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var slack = require('slack');
-var request = require('request');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -19,7 +18,7 @@ router.post('/', urlencodedParser, function(req, res) {
 
     const actionResult = executeAction(buttonAction, username, responseURL);
     const planPoker = actionResult.planPoker;
-    updateMessage(planPoker.channel, planPoker.message_ts, actionResult.message);
+    planPokerSlackComms.updateMessage(planPoker.channel, planPoker.message_ts, actionResult.message);
 });
 
 function executeAction(buttonActionText, username, responseURL){
@@ -39,12 +38,7 @@ function executeAction(buttonActionText, username, responseURL){
         case 'finish':
             const finishedResult = planPoker.finish();
             message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
-            sendMessageToSlackResponseURL(responseURL, {
-                "response_type": "ephemeral",
-                "replace_original": true,
-                "delete_original": true,
-                "text": ""
-            });
+            planPokerSlackComms.deleteEphemeral(responseURL);
             break;
         case "0":
         case "1/2":
@@ -68,32 +62,5 @@ function executeAction(buttonActionText, username, responseURL){
         message: message
     };
 }
-
-function updateMessage(channel, ts, message){
-    slack.chat.update({
-        token: '***REMOVED***',
-        channel: channel,
-        ts: ts,
-        text: message.text,
-        attachments: message.attachments
-    }).then().catch(console.log);
-}
-
-function sendMessageToSlackResponseURL(responseURL, message){
-    var postOptions = {
-        uri: responseURL,
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        json: message
-    };
-    request(postOptions, function (error, response, body){
-        if (error){
-            console.log(error);
-        }
-    });
-}
-
 
 module.exports = router;

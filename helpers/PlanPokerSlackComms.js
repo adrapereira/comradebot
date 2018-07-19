@@ -1,0 +1,63 @@
+const slack = require('slack');
+const request = require('request');
+
+module.exports = {
+    postMessage: function (planPoker, message) {
+        slack.chat.postMessage({
+            token: '***REMOVED***',
+            channel: planPoker.channel,
+            text: message.text,
+            attachments: message.attachments
+        }).catch(console.log)
+            .then(function (value) {
+                    planPoker.message_ts = value.ts;
+                }
+            );
+    },
+     updateMessage: function(channel, ts, message){
+        slack.chat.update({
+            token: '***REMOVED***',
+            channel: channel,
+            ts: ts,
+            text: message.text,
+            attachments: message.attachments
+        }).then().catch(console.log);
+    },
+    postEphemeral: function(userId, planPoker, message){
+        slack.chat.postEphemeral({
+            token: '***REMOVED***',
+            channel: planPoker.channel,
+            text: message.text,
+            attachments: message.attachments,
+            user: userId
+        }).catch(console.log)
+            .then(function(value) {
+                    planPoker.manage_message_ts = value.message_ts;
+                }
+            );
+    },
+    deleteEphemeral: function (url) {
+        sendMessageToURL(url, {
+            "response_type": "ephemeral",
+            "replace_original": true,
+            "delete_original": true,
+            "text": ""
+        });
+    }
+};
+
+function sendMessageToURL(url, message){
+    var postOptions = {
+        uri: url,
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        json: message
+    };
+    request(postOptions, function (error, response, body){
+        if (error){
+            console.log(error);
+        }
+    });
+}
