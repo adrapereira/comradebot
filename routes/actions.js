@@ -35,12 +35,12 @@ function executeAction(buttonActionText, username, responseURL){
         case 'cancel':
             planPokerList.remove(id);
             message = planPokerMessageCreator.createVotingCanceled(planPoker);
-            planPokerSlackComms.deleteEphemeral(planPoker.team.token, responseURL);
+            planPokerSlackComms.deleteEphemeral(responseURL);
             break;
         case 'finish':
             const finishedResult = planPoker.finish();
             message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
-            planPokerSlackComms.deleteEphemeral(planPoker.team.token,responseURL);
+            planPokerSlackComms.deleteEphemeral(responseURL);
             break;
         case "0":
         case "1/2":
