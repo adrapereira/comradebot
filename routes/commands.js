@@ -19,15 +19,15 @@ router.post('/pp', urlencodedParser, function(req, res) {
     }else{
         res.status(200).end(); // best practice to respond with empty 200 status code
         const id = crypto.randomBytes(16).toString("hex");
-        const team = dbService.getItem(reqBody.team.id);
+        dbService.getItem(reqBody.team_id, function(team){
+            const planPoker = new PlanPoker(id, reqBody.user_name, reqBody.channel_id, reqBody.text, team);
+            PlanPokerList.add(planPoker);
 
-        const planPoker = new PlanPoker(id, reqBody.user_name, reqBody.channel_id, reqBody.text, team);
-        PlanPokerList.add(planPoker);
-
-        const message = planPokerMessageCreator.createVoting(planPoker);
-        planPokerSlackComms.postMessage(team.token, planPoker, message);
-        const creatorMessage = planPokerMessageCreator.createManaging(planPoker);
-        planPokerSlackComms.postEphemeral(team.token, reqBody.user_id, planPoker, creatorMessage);
+            const message = planPokerMessageCreator.createVoting(planPoker);
+            planPokerSlackComms.postMessage(team.token, planPoker, message);
+            const creatorMessage = planPokerMessageCreator.createManaging(planPoker);
+            planPokerSlackComms.postEphemeral(team.token, reqBody.user_id, planPoker, creatorMessage);
+        });
     }
 });
 

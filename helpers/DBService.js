@@ -22,7 +22,7 @@ module.exports = {
         });
     },
 
-    getItem: function(id){
+    getItem: function(id, callback){
         var params = {
             TableName: 'sb_teams',
             Key: {
@@ -33,7 +33,7 @@ module.exports = {
             if (err) {
                 console.log("Error", err);
             } else {
-                console.log("Success", data.Item);
+                callback(data.Item);
             }
         });
     }
