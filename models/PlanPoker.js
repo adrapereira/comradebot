@@ -1,9 +1,10 @@
 class PlanPoker {
-    constructor(id, creator, channel, title){
+    constructor(id, creator, channel, title, team){
         this.id = id;
         this.creator = creator;
         this.title = title;
         this.channel = channel;
+        this.team = team;
         this.message_ts;
         this.manage_message_ts;
         this.votes = {};

@@ -18,7 +18,7 @@ router.post('/', urlencodedParser, function(req, res) {
 
     const actionResult = executeAction(buttonAction, username, responseURL);
     const planPoker = actionResult.planPoker;
-    planPokerSlackComms.updateMessage(planPoker.channel, planPoker.message_ts, actionResult.message);
+    planPokerSlackComms.updateMessage(planPoker.team.token, planPoker.channel, planPoker.message_ts, actionResult.message);
 });
 
 function executeAction(buttonActionText, username, responseURL){
@@ -35,12 +35,12 @@ function executeAction(buttonActionText, username, responseURL){
         case 'cancel':
             planPokerList.remove(id);
             message = planPokerMessageCreator.createVotingCanceled(planPoker);
-            planPokerSlackComms.deleteEphemeral(responseURL);
+            planPokerSlackComms.deleteEphemeral(planPoker.team.token, responseURL);
             break;
         case 'finish':
             const finishedResult = planPoker.finish();
             message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
-            planPokerSlackComms.deleteEphemeral(responseURL);
+            planPokerSlackComms.deleteEphemeral(planPoker.team.token,responseURL);
             break;
         case "0":
         case "1/2":

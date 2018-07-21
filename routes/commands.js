@@ -1,7 +1,9 @@
-var PlanPokerList = require('../models/PlanPokerList');
+const PlanPokerList = require('../models/PlanPokerList');
 const PlanPoker = require('../models/PlanPoker');
+const Team = require('../models/Team');
 const planPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
 const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
+const dbService = require('../helpers/DBService');
 
 var express = require('express');
 var router = express.Router();
@@ -17,13 +19,15 @@ router.post('/pp', urlencodedParser, function(req, res) {
     }else{
         res.status(200).end(); // best practice to respond with empty 200 status code
         const id = crypto.randomBytes(16).toString("hex");
-        const planPoker = new PlanPoker(id, reqBody.user_name, reqBody.channel_id, reqBody.text);
+        const team = dbService.getItem(reqBody.team.id);
+
+        const planPoker = new PlanPoker(id, reqBody.user_name, reqBody.channel_id, reqBody.text, team);
         PlanPokerList.add(planPoker);
 
         const message = planPokerMessageCreator.createVoting(planPoker);
-        planPokerSlackComms.postMessage(planPoker, message);
+        planPokerSlackComms.postMessage(team.token, planPoker, message);
         const creatorMessage = planPokerMessageCreator.createManaging(planPoker);
-        planPokerSlackComms.postEphemeral(reqBody.user_id, planPoker, creatorMessage);
+        planPokerSlackComms.postEphemeral(team.token, reqBody.user_id, planPoker, creatorMessage);
     }
 });
 
