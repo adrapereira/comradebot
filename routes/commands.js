@@ -7,6 +7,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 const crypto = require("crypto");
+const dbService = require("../helpers/DBService");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
