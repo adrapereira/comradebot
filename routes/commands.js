@@ -1,9 +1,7 @@
 const PlanPokerList = require('../models/PlanPokerList');
 const PlanPoker = require('../models/PlanPoker');
-const Team = require('../models/Team');
 const planPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
 const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
-const dbService = require('../helpers/DBService');
 
 var express = require('express');
 var router = express.Router();
