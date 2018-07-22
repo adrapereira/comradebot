@@ -8,10 +8,11 @@ const Team = require('../models/Team');
 
 router.get('/', function(req, res) {
     res.status(200).end(); // best practice to respond with 200 status
-    slack.oauth.token({
+    const code = req.query.code;
+    slack.oauth.access({
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
-        code: req.query.code
+        code: code
     }).then(function(data){
         console.log(data);
         const team = new Team(data.team_id, data.team_name, data.access_token);
