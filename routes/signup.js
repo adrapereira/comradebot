@@ -7,8 +7,8 @@ const Team = require('../models/Team');
 
 router.get('/', function(req, res) {
     res.status(200).end(); // best practice to respond with 200 status
-    console.log("req: " + req);
-    console.log("env: " + process.env);
+    console.log("req: " + JSON.stringify(req));
+    console.log("env: " + JSON.stringify(process.env));
     console.log("client_id: " + process.env.CLIENT_ID);
     console.log("client_secret: " + process.env.CLIENT_SECRET);
     slack.oauth.token({
