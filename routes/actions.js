@@ -11,14 +11,16 @@ const urlencodedParser = bodyParser.urlencoded({extended: false});
 router.post('/', urlencodedParser, function(req, res) {
     res.status(200).end(); // best practice to respond with 200 status
     const payload = JSON.parse(req.body.payload); // parse URL-encoded payload JSON string
-    // const payload = req.body.payload;
+
     const buttonAction = payload.actions[0].value;
     const username = payload.user.name;
     const responseURL = payload.response_url;
 
     const actionResult = executeAction(buttonAction, username, responseURL);
     const planPoker = actionResult.planPoker;
-    planPokerSlackComms.updateMessage(planPoker.team.token, planPoker.channel, planPoker.message_ts, actionResult.message);
+    if(planPoker){
+        planPokerSlackComms.updateMessage(planPoker.team.token, planPoker.channel, planPoker.message_ts, actionResult.message);
+    }
 });
 
 function executeAction(buttonActionText, username, responseURL){
@@ -38,6 +40,7 @@ function executeAction(buttonActionText, username, responseURL){
             planPokerSlackComms.deleteEphemeral(responseURL);
             break;
         case 'finish':
+            planPokerList.remove(id);
             const finishedResult = planPoker.finish();
             message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
             planPokerSlackComms.deleteEphemeral(responseURL);
@@ -55,8 +58,10 @@ function executeAction(buttonActionText, username, responseURL){
         case "100":
         case "?":
         case ":coffee:":
-            planPoker.addVote(username, action);
-            message = planPokerMessageCreator.createVoting(planPoker);
+            if(planPoker){
+                planPoker.addVote(username, action);
+                message = planPokerMessageCreator.createVoting(planPoker);
+            }
             break;
     }
     return {

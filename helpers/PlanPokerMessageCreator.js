@@ -1,13 +1,13 @@
 module.exports = {
     createVoting: function(planPoker){
         const usersThatVoted = usersThatVotedMessage(planPoker);
-        var text = "Planning: *" + planPoker.title + "*";
+        var text = "";
         if(usersThatVoted){
-            text += "\n_" + usersThatVoted + "_";
+            text += "_" + usersThatVoted + "_\n";
         }
-        text += "\nPlease place your vote:";
+        text += "Please place your vote:";
         const message = {
-            "text": planPoker.creator + " started a planning poker",
+            "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
             "attachments": [
                 {
                     "text": text,
@@ -36,19 +36,20 @@ module.exports = {
         return message;
     },
     createVotingFinished: function(planPoker, finished){
-        let text = "Planning: *" + planPoker.title + "*";
+        let text = "";
         if(finished && finished.max){
-            text += "\n" + joinVotes(planPoker);
-            text += "\nMost voted: *" + finished.max.vote +" points* with *" + finished.max.count + "* vote";
+            text += "" + joinVotes(planPoker);
+            text += "\nMost voted: *" + finished.max.vote + " point";
             if(finished.max.count > 1){
                 text += "s";
             }
+            text += "*"
         }else{
-            text += "\n_The session ended without votes_";
+            text += "_The session ended without votes_";
         }
 
         const message = {
-            "text": planPoker.creator + " started a planning poker",
+            "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
             "attachments": [
                 {
                     "text": text,
@@ -62,10 +63,10 @@ module.exports = {
     },
     createVotingCanceled: function(planPoker){
         const message = {
-            "text": planPoker.creator + " started a planning poker",
+            "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
             "attachments": [
                 {
-                    "text": "Planning: *" + planPoker.title + "*\n_Voting session was canceled._",
+                    "text": "_Voting session was canceled._",
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "plan-poker",
                     "color": "#3AA3E3",
@@ -75,8 +76,7 @@ module.exports = {
         return message;
     },
     createManaging: function(planPoker){
-        var text = "_Only you can manage the voting!_";
-        text += "\nOnce everyone has placed their votes, click *Finish* to end the voting.";
+        const text = "_Only you can manage the voting!_\nOnce everyone has placed their votes, click *Finish* to end the voting.";
         const message = {
             "text": "",
             "attachments": [
@@ -117,9 +117,10 @@ module.exports = {
 
 function joinVotes(planPoker){
     let voteKeys = Object.keys(planPoker.votes);
+    let voteKeysSorted = voteKeys.sort(function(a,b){return voteKeys[a]-list[b]})
     let votesAsString = [];
-    for (let i = 0; i < voteKeys.length; i++) {
-        const user = voteKeys[i];
+    for (let i = 0; i < voteKeysSorted.length; i++) {
+        const user = voteKeysSorted[i];
         const vote = planPoker.votes[user];
         votesAsString.push(user + ": *" + vote + "*");
     }
