@@ -18,6 +18,7 @@ describe('finishPlanPoker()', function () {
         // 3. ASSERT
         expect(finishResult.max.vote).to.be.equal("3");
         expect(finishResult.max.count).to.be.equal(3);
+        expect(finishResult.allSame).to.be.equal(false);
     });
 
     it('should check most voted is :coffee:', function () {
@@ -37,6 +38,7 @@ describe('finishPlanPoker()', function () {
         // 3. ASSERT
         expect(finishResult.max.vote).to.be.equal(":coffee:");
         expect(finishResult.max.count).to.be.equal(4);
+        expect(finishResult.allSame).to.be.equal(false);
     });
 
     it('should check most voted is 5 when 3 and 5 have most votes', function () {
@@ -56,6 +58,7 @@ describe('finishPlanPoker()', function () {
         // 3. ASSERT
         expect(finishResult.max.vote).to.be.equal("5");
         expect(finishResult.max.count).to.be.equal(3);
+        expect(finishResult.allSame).to.be.equal(false);
     });
 
     it('should check most voted is 5 when most votes is ?', function () {
@@ -75,5 +78,38 @@ describe('finishPlanPoker()', function () {
         // 3. ASSERT
         expect(finishResult.max.vote).to.be.equal("5");
         expect(finishResult.max.count).to.be.equal(2);
+        expect(finishResult.allSame).to.be.equal(false);
+    });
+
+    it('should check votes are all the same', function () {
+        var plan = new PlanPoker();
+        // 1. ARRANGE
+        plan.addVote("user1", "1");
+        plan.addVote("user2", "1");
+        plan.addVote("user3", "1");
+        plan.addVote("user4", "1");
+        plan.addVote("user7", "1");
+
+        // 2. ACT
+        var finishResult = plan.finish();
+
+        // 3. ASSERT
+        expect(finishResult.max.vote).to.be.equal("1");
+        expect(finishResult.max.count).to.be.equal(5);
+        expect(finishResult.allSame).to.be.equal(true);
+    });
+
+    it('should check votes are not all the same since theres only 1 vote', function () {
+        var plan = new PlanPoker();
+        // 1. ARRANGE
+        plan.addVote("user1", "1");
+
+        // 2. ACT
+        var finishResult = plan.finish();
+
+        // 3. ASSERT
+        expect(finishResult.max.vote).to.be.equal("1");
+        expect(finishResult.max.count).to.be.equal(1);
+        expect(finishResult.allSame).to.be.equal(false);
     });
 });

@@ -46,7 +46,7 @@ class PlanPoker {
         result.max = maxVal;
         result.allSame = false;
         // We ignore the votes being the same if there's only 1 vote
-        if(counts.size === 1 && counts[0] !== 1){
+        if(countsKeys.length === 1 && counts[countsKeys[0]] !== 1){
             result.allSame = true;
         }
         return result;
