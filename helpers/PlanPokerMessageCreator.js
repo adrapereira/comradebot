@@ -170,8 +170,9 @@ function buildMostVotedMsg(maxMap){
 function buildAllSameMsg(allSame){
     let result = "";
     if(allSame){
-        const emojis = [':beers:', ':tada:', ':clap:', ':exploding_head:', ':muscle'];
-        result = " " + emojis.join(" ");
+        const emojis = [':beers:', ':tada:', ':clap:', ':exploding_head:', ':muscle:'];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        result = " " + randomEmoji;
     }
     return result;
 }
