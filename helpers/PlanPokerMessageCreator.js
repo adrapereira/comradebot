@@ -114,7 +114,7 @@ module.exports = {
 
 function joinVotes(planPoker){
     let voteKeys = Object.keys(planPoker.votes);
-    let voteKeysSorted = voteKeys.sort(function(a,b){return voteKeys[a]-list[b]})
+    let voteKeysSorted = voteKeys.sort(function(a,b){return voteKeys[a]-voteKeys[b]})
     let votesAsString = [];
     for (let i = 0; i < voteKeysSorted.length; i++) {
         const user = voteKeysSorted[i];
