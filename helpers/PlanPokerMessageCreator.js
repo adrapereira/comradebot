@@ -39,11 +39,8 @@ module.exports = {
         let text = "";
         if(finished && finished.max){
             text += "" + joinVotes(planPoker);
-            text += "\nMost voted: *" + finished.max.vote + " point";
-            if(finished.max.count > 1){
-                text += "s";
-            }
-            text += "*"
+            text += buildMostVotedMsg(finished.max);
+            text += buildAllSameMsg(finished.allSame);
         }else{
             text += "_The session ended without votes_";
         }
@@ -159,4 +156,22 @@ function createPlanPokerActions(numbers, id){
 
 function joinIdAndValue(id, value){
     return id + "@@@" + value;
+}
+
+function buildMostVotedMsg(maxMap){
+    let result = "\nMost voted: *" + maxMap.vote + " point";
+    if(parseInt(maxMap) !== 1){
+        result += "s";
+    }
+    result += "*";
+    return result;
+}
+
+function buildAllSameMsg(allSame){
+    let result = "";
+    if(allSame){
+        const emojis = [':beers:', ':tada:', ':clap:', ':exploding_head:', ':muscle'];
+        result = " " + emojis.join(" ");
+    }
+    return result;
 }
