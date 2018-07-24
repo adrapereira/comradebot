@@ -12,24 +12,24 @@ module.exports = {
                 {
                     "text": text,
                     "fallback": "Shame... buttons aren't supported in this land",
-                    "callback_id": "plan-poker",
+                    "callback_id": "pp@@@" + planPoker.id,
                     "color": "#3AA3E3",
                     "attachment_type": "default",
-                    "actions": createPlanPokerActions(['0', '1/2', '1', '2', '3'],planPoker.id)
+                    "actions": createPlanPokerActions(['0', '1/2', '1', '2', '3'])
                 },
                 {
                     "fallback": "Shame... buttons aren't supported in this land",
-                    "callback_id": "plan-poker",
+                    "callback_id": "pp@@@" + planPoker.id,
                     "color": "#3AA3E3",
                     "attachment_type": "default",
-                    "actions": createPlanPokerActions(['5', '8', '13', '20', '40'],planPoker.id)
+                    "actions": createPlanPokerActions(['5', '8', '13', '20', '40'])
                 },
                 {
                     "fallback": "Shame... buttons aren't supported in this land",
-                    "callback_id": "plan-poker",
+                    "callback_id": "pp@@@" + planPoker.id,
                     "color": "#3AA3E3",
                     "attachment_type": "default",
-                    "actions": createPlanPokerActions(['100', '?', ":coffee:"], planPoker.id)
+                    "actions": createPlanPokerActions(['100', '?', ":coffee:"])
                 }
             ]
         };
@@ -80,7 +80,7 @@ module.exports = {
                 {
                     "text": text,
                     "fallback": "Shame... buttons aren't supported in this land",
-                    "callback_id": "plan-poker",
+                    "callback_id": "pp@@@" + planPoker.id,
                     "color": "#3AA3E3",
                     "attachment_type": "default",
                     "actions": [
@@ -88,20 +88,20 @@ module.exports = {
                             "name": "finish",
                             "text": "Finish",
                             "type": "button",
-                            "value": joinIdAndValue(planPoker.id, "finish"),
+                            "value": "finish",
                             "style": "primary"
                         },
                         {
                             "name": "reset",
                             "text": "Reset",
                             "type": "button",
-                            "value": joinIdAndValue(planPoker.id, "reset"),
+                            "value": "reset",
                         },
                         {
                             "name": "cancel",
                             "text": "Cancel",
                             "type": "button",
-                            "value": joinIdAndValue(planPoker.id, "cancel"),
+                            "value": "cancel",
                             "style": "danger"
                         }
                     ]
@@ -141,21 +141,17 @@ function joinListString(list){
     return [list.slice(0, -1).join(', '), list.slice(-1)[0]].join(list.length < 2 ? '' : ' and ');
 }
 
-function createPlanPokerActions(numbers, id){
+function createPlanPokerActions(numbers){
     var actions = [];
     numbers.forEach(function (value) {
         actions.push({
             "name": "vote-" + value,
             "text": value,
             "type": "button",
-            "value": joinIdAndValue(id, value)
+            "value": value
         });
     });
     return actions;
-}
-
-function joinIdAndValue(id, value){
-    return id + "@@@" + value;
 }
 
 function buildMostVotedMsg(maxMap){

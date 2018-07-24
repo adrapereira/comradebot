@@ -28,7 +28,6 @@ router.post('/pp', urlencodedParser, function(req, res) {
                 const creatorMessage = planPokerMessageCreator.createManaging(planPoker);
                 planPokerSlackComms.postEphemeral(team.token, reqBody.user_id, planPoker, creatorMessage);
             }, 1000);
-
         });
     }
 });
