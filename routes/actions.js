@@ -9,6 +9,7 @@ const urlencodedParser = bodyParser.urlencoded({extended: false});
 router.post('/', urlencodedParser, function(req, res) {
     res.status(200).end(); // best practice to respond with 200 status
     const payload = JSON.parse(req.body.payload);
+    // const payload = req.body.payload;
 
     const buttonAction = payload.actions[0].value;
     const username = payload.user.name;
