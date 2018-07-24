@@ -1,5 +1,6 @@
 const slack = require('slack');
 const request = require('request');
+const PlanPokerList = require('../models/PlanPokerList');
 
 module.exports = {
     postMessage: function (token, planPoker, message) {
@@ -11,6 +12,7 @@ module.exports = {
         }).catch(console.log)
             .then(function (value) {
                     planPoker.message_ts = value.ts;
+                    PlanPokerList.add(planPoker);
                 }
             );
     },
@@ -40,6 +42,7 @@ module.exports = {
         }).catch(console.log)
             .then(function(value) {
                     planPoker.manage_message_ts = value.message_ts;
+                    PlanPokerList.add(planPoker);
                 }
             );
     },
