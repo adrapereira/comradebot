@@ -6,7 +6,9 @@ const PlanPoker = require('../models/PlanPoker');
 module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
         planPokerList.get(planPokerId).then(function (pp) {
-            let planPoker = PlanPoker.createFromOject(pp);
+            let planPoker = new PlanPoker();
+            planPoker.mapObjectToThis(pp);
+
             let message;
             switch (action){
                 case 'reset':
