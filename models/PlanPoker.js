@@ -9,6 +9,9 @@ class PlanPoker {
         this.manage_message_ts;
         this.votes = {};
     }
+    static createFromOject(obj) {
+        return obj && Object.assign(this, obj);
+    }
 
     addVote(username, value) {
         this.votes[username] = value;

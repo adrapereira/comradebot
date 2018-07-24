@@ -1,12 +1,12 @@
 const planPokerList = require('../models/PlanPokerList');
-const planPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
-const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
+const planPokerMessageCreator = require('./PlanPokerMessageCreator');
+const planPokerSlackComms = require('./PlanPokerSlackComms');
+const PlanPoker = require('../models/PlanPoker');
 
 module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
         planPokerList.get(planPokerId).then(function (pp) {
-            let planPoker = pp;
-            console.log(planPoker);
+            let planPoker = PlanPoker.createFromOject(pp);
             let message;
             switch (action){
                 case 'reset':
