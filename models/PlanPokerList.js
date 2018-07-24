@@ -11,6 +11,11 @@ class PlanPokerList {
         db.put(item).then().catch(console.log);
     }
 
+    // serves as an alias to improve code readability
+    update(item){
+        this.add(item);
+    }
+
     get(id){
         const item = this._list[id];
         if(item){

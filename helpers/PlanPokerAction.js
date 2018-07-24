@@ -13,6 +13,7 @@ module.exports = {
             switch (action){
                 case 'reset':
                     planPoker.reset();
+                    planPokerList.update(planPoker);
                     message = planPokerMessageCreator.createVoting(planPoker);
                     break;
                 case 'cancel':
@@ -32,6 +33,7 @@ module.exports = {
                 case ":coffee:":
                     if(planPoker){
                         planPoker.addVote(username, action);
+                        planPokerList.update(planPoker);
                         message = planPokerMessageCreator.createVoting(planPoker);
                     }
                     break;
