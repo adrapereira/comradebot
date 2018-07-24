@@ -4,7 +4,7 @@ const planPokerSlackComms = require('../helpers/PlanPokerSlackComms');
 
 module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
-        const planPoker = planPokerList.get(id);
+        const planPoker = planPokerList.get(planPokerId);
         let message;
         switch (action){
             case 'reset':
