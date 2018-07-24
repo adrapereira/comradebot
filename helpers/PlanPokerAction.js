@@ -6,6 +6,7 @@ module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
         planPokerList.get(planPokerId).then(function (pp) {
             let planPoker = pp;
+            console.log(planPoker);
             let message;
             switch (action){
                 case 'reset':
