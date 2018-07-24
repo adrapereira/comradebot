@@ -12,12 +12,12 @@ module.exports = {
                 message = planPokerMessageCreator.createVoting(planPoker);
                 break;
             case 'cancel':
-                planPokerList.remove(id);
+                planPokerList.remove(planPokerId);
                 message = planPokerMessageCreator.createVotingCanceled(planPoker);
                 planPokerSlackComms.deleteEphemeral(responseURL);
                 break;
             case 'finish':
-                planPokerList.remove(id);
+                planPokerList.remove(planPokerId);
                 const finishedResult = planPoker.finish();
                 message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
                 planPokerSlackComms.deleteEphemeral(responseURL);
