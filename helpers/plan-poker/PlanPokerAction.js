@@ -1,11 +1,11 @@
-const planPokerList = require('./PlanPokerList');
+const ItemList = require('../ItemList');
 const planPokerMessageCreator = require('./PlanPokerMessageCreator');
 const planPokerSlackComms = require('./PlanPokerSlackComms');
 const PlanPoker = require('../../models/PlanPoker');
 
 module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
-        planPokerList.get(planPokerId).then(function (pp) {
+        ItemList.get(planPokerId).then(function (pp) {
             let planPoker = new PlanPoker();
             planPoker.mapObjectToThis(pp);
 
@@ -13,16 +13,16 @@ module.exports = {
             switch (action){
                 case 'reset':
                     planPoker.reset();
-                    planPokerList.update(planPoker);
+                    ItemList.update(planPoker);
                     message = planPokerMessageCreator.createVoting(planPoker);
                     break;
                 case 'cancel':
-                    planPokerList.remove(planPokerId);
+                    ItemList.remove(planPokerId);
                     message = planPokerMessageCreator.createVotingCanceled(planPoker);
                     planPokerSlackComms.deleteEphemeral(responseURL);
                     break;
                 case 'finish':
-                    planPokerList.remove(planPokerId);
+                    ItemList.remove(planPokerId);
                     const finishedResult = planPoker.finish();
                     message = planPokerMessageCreator.createVotingFinished(planPoker, finishedResult);
                     planPokerSlackComms.deleteEphemeral(responseURL);
@@ -33,7 +33,7 @@ module.exports = {
                 case ":coffee:":
                     if(planPoker){
                         planPoker.addVote(username, action);
-                        planPokerList.update(planPoker);
+                        ItemList.update(planPoker);
                         message = planPokerMessageCreator.createVoting(planPoker);
                     }
                     break;

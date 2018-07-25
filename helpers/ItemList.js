@@ -1,7 +1,7 @@
 const PouchDB = require('pouchdb');
-const db = new PouchDB('plan-poker-db');
+const db = new PouchDB('cache-db');
 
-class PlanPokerList {
+class ItemList {
     constructor(){
         this._list = {};
     }
@@ -27,10 +27,15 @@ class PlanPokerList {
 
     remove(id){
         delete this._list[id];
+        db.get(id).then(function (doc) {
+            if (doc) {
+                return db.remove(doc);
+            }
+        });
     }
 }
 
-const instance = new PlanPokerList();
+const instance = new ItemList();
 Object.freeze(instance);
 
 module.exports = instance;

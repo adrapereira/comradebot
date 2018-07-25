@@ -1,4 +1,4 @@
-const PlanPokerList = require('./PlanPokerList');
+const ItemList = require('../ItemList');
 const SlackCommsBase = require('../SlackCommsBase');
 
 module.exports = {
@@ -7,11 +7,11 @@ module.exports = {
             .catch(console.log)
             .then(function (value) {
                     planPoker.message_ts = value.ts;
-                    PlanPokerList.update(planPoker);
+                ItemList.update(planPoker);
                 }
             );
     },
-     updateMessage: function(token, channel, ts, message){
+    updateMessage: function (token, channel, ts, message) {
          SlackCommsBase.updateMessage(token, channel, ts, message)
              .then().catch(console.log);
     },
@@ -24,7 +24,7 @@ module.exports = {
             .catch(console.log)
             .then(function(value) {
                     planPoker.manage_message_ts = value.message_ts;
-                    PlanPokerList.update(planPoker);
+                ItemList.update(planPoker);
                 }
             );
     },
