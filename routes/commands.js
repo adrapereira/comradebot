@@ -6,6 +6,7 @@ const planPokerSlackComms = require('../helpers/plan-poker/PlanPokerSlackComms')
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+require('dotenv').config();
 const crypto = require("crypto");
 const dbService = require("../helpers/DBService");
 
@@ -54,7 +55,7 @@ router.post('/dsm', urlencodedParser, function (req, res) {
 });
 
 function isRequestValid(token) {
-    return token !== '99Sx8W87nzBjWNe9MBRZ8KRn';
+    return token === process.env.CLIENT_VERIFICATION_TOKEN;
 }
 
 module.exports = router;
