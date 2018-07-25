@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var PlanPoker = require('../models/PlanPoker');
-var PlanPokerMessageCreator = require('../helpers/PlanPokerMessageCreator');
+var PlanPokerMessageCreator = require('../helpers/plan-poker/PlanPokerMessageCreator');
 
 describe('finishPlanPoker message', function () {
     it('should not throw errors and build the correct text', function () {

@@ -1,4 +1,4 @@
-const planPokerAction = require('../helpers/PlanPokerAction');
+const planPokerAction = require('../helpers/plan-poker/PlanPokerAction');
 
 const express = require('express');
 const router = express.Router();

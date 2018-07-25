@@ -1,5 +1,5 @@
 const PouchDB = require('pouchdb');
-const db = new PouchDB('plan-poker');
+const db = new PouchDB('plan-poker-db');
 
 class PlanPokerList {
     constructor(){

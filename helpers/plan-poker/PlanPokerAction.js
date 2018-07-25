@@ -1,7 +1,7 @@
-const planPokerList = require('../models/PlanPokerList');
+const planPokerList = require('./PlanPokerList');
 const planPokerMessageCreator = require('./PlanPokerMessageCreator');
 const planPokerSlackComms = require('./PlanPokerSlackComms');
-const PlanPoker = require('../models/PlanPoker');
+const PlanPoker = require('../../models/PlanPoker');
 
 module.exports = {
     execute: function (action, planPokerId, username, responseURL) {
