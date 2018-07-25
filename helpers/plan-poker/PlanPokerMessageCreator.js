@@ -1,3 +1,4 @@
+const Constants = require('../../models/Constants');
 module.exports = {
     createVoting: function(planPoker){
         const usersThatVoted = usersThatVotedMessage(planPoker);
@@ -13,21 +14,21 @@ module.exports = {
                     "text": text,
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "pp@@@" + planPoker._id,
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                     "attachment_type": "default",
                     "actions": createPlanPokerActions(['0', '1/2', '1', '2', '3'])
                 },
                 {
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "pp@@@" + planPoker._id,
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                     "attachment_type": "default",
                     "actions": createPlanPokerActions(['5', '8', '13', '20', '40'])
                 },
                 {
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "pp@@@" + planPoker._id,
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                     "attachment_type": "default",
                     "actions": createPlanPokerActions(['100', '?', ":coffee:"])
                 }
@@ -52,7 +53,7 @@ module.exports = {
                     "text": text,
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "plan-poker",
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                 }
             ]
         };
@@ -66,7 +67,7 @@ module.exports = {
                     "text": "_Voting session was canceled._",
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "plan-poker",
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                 }
             ]
         };
@@ -81,7 +82,7 @@ module.exports = {
                     "text": text,
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "pp@@@" + planPoker._id,
-                    "color": "#3AA3E3",
+                    "color": Constants.SLACK_COLOR,
                     "attachment_type": "default",
                     "actions": [
                         {
