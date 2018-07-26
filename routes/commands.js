@@ -49,7 +49,7 @@ router.post('/dsm', urlencodedParser, function (req, res) {
             ItemList.add(dsm);
 
             const message = dsmMessageCreator.createConfigureDsm(dsm);
-            dsmSlackComms.postMessage(team.token, dsm, message);
+            dsmSlackComms.postEphemeral(team.token, reqBody.user_id, dsm, message);
         });
     }
 });

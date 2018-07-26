@@ -7,6 +7,8 @@ class DSM {
         this.message_ts;
         this.manage_message_ts;
         this.participants = {};
+        this.duration;
+        this.link;
     }
 
     mapObjectToThis(obj) {
