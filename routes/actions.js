@@ -12,7 +12,10 @@ router.post('/', urlencodedParser, function(req, res) {
     const payload = JSON.parse(req.body.payload);
     // const payload = req.body.payload;
 
-    const buttonAction = payload.actions[0].value;
+    let buttonAction = payload.actions[0].value;
+    if (!buttonAction) {
+        buttonAction = payload.actions[0].selected_options[0].value;
+    }
     const username = payload.user.name;
     const responseURL = payload.response_url;
     const callbackId = payload.callback_id;
