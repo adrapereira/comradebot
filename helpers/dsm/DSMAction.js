@@ -27,7 +27,7 @@ module.exports = {
                     dsm.link = actionValue;
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createManageDsm(dsm);
-                    dsmSlackComms.updateMessage(dsm.team.token, dsm.channel, dsm.manage_message_ts, message);
+                    dsmSlackComms.updateEphemeral(responseURL, message);
                     break;
             }
         }).catch(console.log);

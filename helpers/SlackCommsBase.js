@@ -35,6 +35,15 @@ module.exports = {
             user: userId
         });
     },
+    updateEphemeral: function (url, message) {
+        sendMessageToURL(url, {
+            "response_type": "ephemeral",
+            "replace_original": true,
+            "delete_original": false,
+            "text": message.text,
+            "attachments": message.attachments
+        });
+    },
     deleteEphemeral: function (url) {
         sendMessageToURL(url, {
             "response_type": "ephemeral",

@@ -28,6 +28,9 @@ module.exports = {
                 }
             );
     },
+    updateEphemeral: function (url, message) {
+        SlackCommsBase.updateEphemeral(url, message);
+    },
     deleteEphemeral: function (url) {
         SlackCommsBase.deleteEphemeral(url);
     }
