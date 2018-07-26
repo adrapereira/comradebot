@@ -1,4 +1,5 @@
 const planPokerAction = require('../helpers/plan-poker/PlanPokerAction');
+const dsmAction = require('../helpers/dsm/DSMAction');
 
 const express = require('express');
 const router = express.Router();
@@ -28,6 +29,7 @@ function executeAction(callbackId, buttonAction, username, responseURL){
             planPokerAction.execute(buttonAction, actionId, username, responseURL);
             break;
         case 'dsm':
+            dsmAction.execute(buttonAction, actionId, username, responseURL);
             break;
     }
 }

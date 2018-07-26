@@ -13,13 +13,17 @@ module.exports = {
             const actionType = actionSplit[0];
             const actionValue = actionSplit[1];
 
+            console.log({actionSplit});
+
             let message;
             switch (actionType) {
                 case 'duration':
+                    console.log("duration");
                     dsm.duration = actionValue;
                     ItemList.update(dsm);
                     break;
                 case 'link':
+                    console.log("link");
                     dsm.link = actionValue;
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createManageDsm(dsm);
