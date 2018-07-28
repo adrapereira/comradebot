@@ -23,7 +23,9 @@ router.post('/pp', urlencodedParser, function(req, res) {
     }else{
         res.status(200).end(); // best practice to respond with empty 200 status code
         const id = crypto.randomBytes(16).toString("hex");
-        dbService.getItem(reqBody.team_id, function(team){
+        dbService.getItem(reqBody.team_id, function (dbItem) {
+            let team = new Team();
+            team.mapObjectToThis(dbItem);
             const planPoker = new PlanPoker(id, reqBody.user_name, reqBody.channel_id, reqBody.text, team);
             ItemList.add(planPoker);
 
@@ -44,7 +46,9 @@ router.post('/dsm', urlencodedParser, function (req, res) {
     } else {
         res.status(200).end(); // best practice to respond with empty 200 status code
         const id = crypto.randomBytes(16).toString("hex");
-        dbService.getItem(reqBody.team_id, function (team) {
+        dbService.getItem(reqBody.team_id, function (dbItem) {
+            let team = new Team();
+            team.mapObjectToThis(dbItem);
             const dsm = new DSM(id, reqBody.user_name, reqBody.channel_id, team);
             ItemList.add(dsm);
 
