@@ -4,7 +4,7 @@ const dsmSlackComms = require('./DSMSlackComms');
 const DSM = require('../../models/DSM');
 
 module.exports = {
-    execute: function (action, dsmId, username, responseURL) {
+    execute: function (action, dsmId, user, responseURL) {
         ItemList.get(dsmId).then(function (item) {
             let dsm = new DSM();
             dsm.mapObjectToThis(item);
@@ -26,8 +26,21 @@ module.exports = {
                     console.log("link");
                     dsm.link = actionValue;
                     ItemList.update(dsm);
+                    message = dsmMessageCreator.createPreStartDsm(dsm);
+                    dsmSlackComms.updateEphemeral(responseURL, message);
+                    break;
+                case 'start':
+                    console.log("start");
                     message = dsmMessageCreator.createManageDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
+                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm);
+                    dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
+                    break;
+                case 'join':
+                    console.log("join: " + user.name);
+                    dsm.participants[user.id] = user;
+                    message = dsmMessageCreator.createLinkDsm(dsm);
+                    dsmSlackComms.postEphemeral(dsm.team.token, user.id, dsm, message);
                     break;
             }
         }).catch(console.log);

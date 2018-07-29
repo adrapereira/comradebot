@@ -32,6 +32,82 @@ module.exports = {
         };
         return message;
     },
+    createPreStartDsm: function (dsm) {
+        const message = {
+            "text": "",
+            "attachments": [
+                {
+                    "text": "_Manage the current call. Duration: " + dsm.duration + "_",
+                    "fallback": "Shame... buttons aren't supported in this land",
+                    "callback_id": "dsm@@@" + dsm._id,
+                    "color": Constants.SLACK_COLOR,
+                    "attachment_type": "default",
+                    "actions": [
+                        {
+                            "name": "start",
+                            "text": "Start",
+                            "type": "button",
+                            "value": "manage@@@start"
+                        },
+                        {
+                            "name": "cancel",
+                            "text": "Cancel",
+                            "type": "button",
+                            "value": "manage@@@cancel"
+                        }
+                    ]
+                }
+            ]
+        };
+        return message;
+    },
+    createJoinDsm: function (dsm) {
+        const message = {
+            "text": "",
+            "attachments": [
+                {
+                    "text": dsm.creator + " started a new Daily Scrum Meeting",
+                    "fallback": "Shame... buttons aren't supported in this land",
+                    "callback_id": "dsm@@@" + dsm._id,
+                    "color": Constants.SLACK_COLOR,
+                    "attachment_type": "default",
+                    "actions": [
+                        {
+                            "name": "join",
+                            "text": "Join Meeting",
+                            "type": "button",
+                            "value": "manage@@@join"
+                        }
+                    ]
+                }
+            ]
+        };
+        return message;
+    },
+    createLinkDsm: function (dsm) {
+        const message = {
+            "text": "",
+            "attachments": [
+                {
+                    "text": "Click the button to join the call",
+                    "fallback": "Join the call: " + dsm.link,
+                    "callback_id": "dsm@@@" + dsm._id,
+                    "color": Constants.SLACK_COLOR,
+                    "attachment_type": "default",
+                    "actions": [
+                        {
+                            "name": "clickLink",
+                            "text": "Join Call",
+                            "type": "button",
+                            "value": "manage@@@clickLink",
+                            "url": dsm.link
+                        }
+                    ]
+                }
+            ]
+        };
+        return message;
+    },
     createManageDsm: function (dsm) {
         const message = {
             "text": "",

@@ -16,23 +16,22 @@ router.post('/', urlencodedParser, function(req, res) {
     if (!buttonAction) {
         buttonAction = payload.actions[0].selected_options[0].value;
     }
-    const username = payload.user.name;
     const responseURL = payload.response_url;
     const callbackId = payload.callback_id;
 
-    executeAction(callbackId, buttonAction, username, responseURL);
+    executeAction(callbackId, buttonAction, payload.user, responseURL);
 });
 
-function executeAction(callbackId, buttonAction, username, responseURL){
+function executeAction(callbackId, buttonAction, user, responseURL) {
     const actionSplit = callbackId.split("@@@");
     const actionType = actionSplit[0];
     const actionId = actionSplit[1];
     switch (actionType){
         case 'pp':
-            planPokerAction.execute(buttonAction, actionId, username, responseURL);
+            planPokerAction.execute(buttonAction, actionId, user.name, responseURL);
             break;
         case 'dsm':
-            dsmAction.execute(buttonAction, actionId, username, responseURL);
+            dsmAction.execute(buttonAction, actionId, user, responseURL);
             break;
     }
 }
