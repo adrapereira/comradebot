@@ -47,13 +47,13 @@ module.exports = {
                             "name": "start",
                             "text": "Start",
                             "type": "button",
-                            "value": "manage@@@start"
+                            "value": "start@@@manage"
                         },
                         {
                             "name": "cancel",
                             "text": "Cancel",
                             "type": "button",
-                            "value": "manage@@@cancel"
+                            "value": "cancel@@@manage"
                         }
                     ]
                 }
@@ -76,7 +76,7 @@ module.exports = {
                             "name": "join",
                             "text": "Join Meeting",
                             "type": "button",
-                            "value": "manage@@@join"
+                            "value": "join@@@manage"
                         }
                     ]
                 }
@@ -99,7 +99,7 @@ module.exports = {
                             "name": "clickLink",
                             "text": "Join Call",
                             "type": "button",
-                            "value": "manage@@@clickLink",
+                            "value": "clickLink@@@manage",
                             "url": dsm.link
                         }
                     ]
@@ -123,19 +123,19 @@ module.exports = {
                             "name": "skip",
                             "text": "Skip speaker",
                             "type": "button",
-                            "value": "manage@@@skip"
+                            "value": "skip@@@manage"
                         },
                         {
                             "name": "restart",
                             "text": "Restart",
                             "type": "button",
-                            "value": "manage@@@restart"
+                            "value": "restart@@@manage"
                         },
                         {
                             "name": "cancel",
                             "text": "Cancel",
                             "type": "button",
-                            "value": "manage@@@cancel"
+                            "value": "cancel@@@manage"
                         }
                     ]
                 }
