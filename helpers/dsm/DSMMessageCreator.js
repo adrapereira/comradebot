@@ -1,4 +1,6 @@
 const Constants = require('../../models/Constants');
+const DSMCrypto = require('DSMCrypto');
+
 module.exports = {
     createConfigureDsm: function (dsm) {
         const message = {
@@ -61,7 +63,7 @@ module.exports = {
         };
         return message;
     },
-    createJoinDsm: function (dsm) {
+    createJoinDsm: function (dsm, user) {
         const message = {
             "text": "",
             "attachments": [
@@ -76,7 +78,8 @@ module.exports = {
                             "name": "join",
                             "text": "Join Meeting",
                             "type": "button",
-                            "value": "join@@@manage"
+                            "value": "join@@@manage",
+                            "url": "https://scrumbot.tk/commands/dsm?d=" + DSMCrypto.encryptForUrl(dsm, user)
                         }
                     ]
                 }

@@ -7,6 +7,7 @@ const DSM = require('../models/DSM');
 const dsmMessageCreator = require('../helpers/dsm/DSMMessageCreator');
 const dsmSlackComms = require('../helpers/dsm/DSMSlackComms');
 const Team = require('../models/Team');
+const DSMCrypto = require('../helpers/dsm/DSMCrypto');
 
 
 const express = require('express');
@@ -58,6 +59,11 @@ router.post('/dsm', urlencodedParser, function (req, res) {
             dsmSlackComms.postEphemeral(team.token, reqBody.user_id, dsm, message);
         });
     }
+});
+
+router.get('/dsm', urlencodedParser, function (req, res) {
+    console.log(req);
+    console.log(DSMCrypto.decrypt(req.query.d));
 });
 
 function isRequestValid(token) {
