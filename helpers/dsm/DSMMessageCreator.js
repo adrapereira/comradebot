@@ -1,5 +1,5 @@
 const Constants = require('../../models/Constants');
-const DSMCrypto = require('DSMCrypto');
+const DSMCrypto = require('./DSMCrypto');
 
 module.exports = {
     createConfigureDsm: function (dsm) {
