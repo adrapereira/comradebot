@@ -167,7 +167,7 @@ function createDsmActions(numbers) {
             "name": "vote-" + value,
             "text": value,
             "type": "button",
-            "value": "link@@@" + value
+            "value": "link@@@" + "https://www.youtube.com/feed/subscriptions"
         });
     });
     return actions;

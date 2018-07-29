@@ -28,13 +28,13 @@ module.exports = {
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createPreStartDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
+                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm);
+                    dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
                     break;
                 case 'start':
                     console.log("start");
                     message = dsmMessageCreator.createManageDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
-                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm);
-                    dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
                     break;
                 case 'join':
                     console.log("join: " + user.name);
