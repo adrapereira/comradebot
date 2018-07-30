@@ -49,11 +49,14 @@ class DSM {
     nextParticipant() {
         console.log("dsm=nextParticipant");
         const now = _.now();
+        console.log(this);
         if (this.meeting.currentSpeaker) {
+            console.log("there is a currentSpeaker");
             this.participants[this.meeting.currentSpeaker].time = formatTimeDifference(now, this.meeting.currentSpeakerStartTime);
             this.meeting.participantsDone.push(this.meeting.currentSpeaker);
         }
         if (this.meeting.participantLeft.length > 0) {
+            console.log("there is participants left");
             this.meeting.currentSpeaker = this.meeting.participantLeft.pop();
             this.meeting.currentSpeakerStartTime = now;
             return true;

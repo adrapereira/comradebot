@@ -66,6 +66,6 @@ function updateInProgressMsg(dsm) {
 }
 
 function postSpeakerMsg(dsm) {
-    const postSpeakerMsg = dsmMessageCreator.createInProgressMessage(dsm);
+    const postSpeakerMsg = dsmMessageCreator.createSpeakerMessage(dsm);
     dsmSlackComms.postEphemeral(dsm.team.token, dsm.meeting.currentSpeaker, dsm, postSpeakerMsg);
 }

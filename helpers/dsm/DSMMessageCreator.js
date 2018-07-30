@@ -141,7 +141,7 @@ module.exports = {
         };
         return message;
     },
-    createInProgressMessage(dsm) {
+    createSpeakerMessage(dsm) {
         const message = {
             "text": "",
             "attachments": [
