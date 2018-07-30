@@ -127,7 +127,7 @@ module.exports = {
         if (participantsDone) {
             participantsDone = "\n" + participantsDone;
         }
-        const currentSpeaker = "\n" + createCurrentSpeaker(dsm);
+        const currentSpeaker = createCurrentSpeaker(dsm);
         const message = {
             "text": "",
             "attachments": [
@@ -179,8 +179,11 @@ function createParticipantsDone(dsm) {
 }
 
 function createCurrentSpeaker(dsm) {
-    const userId = dsm.meeting.currentSpeaker;
-    return dsm.participants[userId].name + " :stopwatch:";
+    if (dsm.meeting.currentSpeaker) {
+        const userId = dsm.meeting.currentSpeaker;
+        return "\n" + dsm.participants[userId].name + " :stopwatch:";
+    }
+    return "";
 }
 
 function createDurationActionList(list) {

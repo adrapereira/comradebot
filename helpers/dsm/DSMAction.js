@@ -35,11 +35,11 @@ module.exports = {
 
                     console.log("start");
                     dsm.start();
-                    updateInProgressMsg(dsm);
                     const participantsLeft = dsm.nextParticipant();
                     if (participantsLeft) {
                         postSpeakerMsg(dsm);
                     }
+                    updateInProgressMsg(dsm);
                     break;
                 case 'endTurn':
                     console.log("endTurn");

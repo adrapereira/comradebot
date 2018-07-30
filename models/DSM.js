@@ -13,7 +13,7 @@ class DSM {
         this.link;
         this.meeting = {
             startTime: null,
-            participantLeft: [],
+            participantsLeft: [],
             participantsDone: [],
             currentSpeaker: null,
             currentSpeakerStartTime: null
@@ -42,7 +42,7 @@ class DSM {
         console.log("dsm=start");
         let userIds = Object.keys(this.participants);
         _.shuffle(userIds);
-        this.meeting.participantLeft = userIds;
+        this.meeting.participantsLeft = userIds;
         this.meeting.startTime = _.now();
     }
 
@@ -55,9 +55,9 @@ class DSM {
             this.participants[this.meeting.currentSpeaker].time = formatTimeDifference(now, this.meeting.currentSpeakerStartTime);
             this.meeting.participantsDone.push(this.meeting.currentSpeaker);
         }
-        if (this.meeting.participantLeft.length > 0) {
+        if (this.meeting.participantsLeft.length > 0) {
             console.log("there is participants left");
-            this.meeting.currentSpeaker = this.meeting.participantLeft.pop();
+            this.meeting.currentSpeaker = this.meeting.participantsLeft.pop();
             this.meeting.currentSpeakerStartTime = now;
             return true;
         }
