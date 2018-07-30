@@ -3,7 +3,6 @@ require('dotenv').config();
 
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // Must be 256 bytes (32 characters)
 const IV_LENGTH = 16;
-const CIPHER = "";
 
 module.exports = {
     encryptForUrl(dsm, user) {
@@ -21,12 +20,12 @@ module.exports = {
 
         encrypted = Buffer.concat([encrypted, cipher.final()]);
 
-        return iv.toString('base64') + ':' + encrypted.toString('base64');
+        return iv.toString('hex') + ':' + encrypted.toString('hex');
     },
     decrypt(text) {
         let textParts = text.split(':');
-        let iv = new Buffer(textParts.shift(), 'base64');
-        let encryptedText = Buffer.from(textParts.join(':'), 'base64');
+        let iv = new Buffer(textParts.shift(), 'hex');
+        let encryptedText = Buffer.from(textParts.join(':'), 'hex');
         let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
         let decrypted = decipher.update(encryptedText);
 
