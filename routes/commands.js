@@ -62,8 +62,11 @@ router.post('/dsm', urlencodedParser, function (req, res) {
 });
 
 router.get('/dsm', urlencodedParser, function (req, res) {
-    console.log(req);
-    console.log(DSMCrypto.decrypt(req.query.d));
+    const decryptedString = DSMCrypto.decrypt(req.query.d);
+    const dsmData = JSON.parse(decryptedString);
+    console.log(dsmData);
+    const dsm = ItemList.get(dsmData.id);
+    res.redirect(dsm.link);
 });
 
 function isRequestValid(token) {
