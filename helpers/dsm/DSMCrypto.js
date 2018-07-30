@@ -24,7 +24,7 @@ module.exports = {
     },
     decrypt(text) {
         let textParts = text.split(':');
-        let iv = new Buffer(textParts.shift(), 'hex');
+        let iv = Buffer.from(textParts.shift(), 'hex');
         let encryptedText = Buffer.from(textParts.join(':'), 'hex');
         let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
         let decrypted = decipher.update(encryptedText);

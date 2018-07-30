@@ -65,8 +65,9 @@ router.get('/dsm', urlencodedParser, function (req, res) {
     const decryptedString = DSMCrypto.decrypt(req.query.d);
     const dsmData = JSON.parse(decryptedString);
     console.log(dsmData);
-    const dsm = ItemList.get(dsmData.id);
-    // res.status(301).redirect(dsm.link);
+    ItemList.get(dsmData.id).then(function (item) {
+        res.status(301).redirect(item.link);
+    }).catch(console.log);
 });
 
 function isRequestValid(token) {
