@@ -127,11 +127,12 @@ module.exports = {
         if (participantsDone) {
             participantsDone = "\n" + participantsDone;
         }
+        const currentSpeaker = "\n" + createCurrentSpeaker(dsm);
         const message = {
             "text": "",
             "attachments": [
                 {
-                    "text": "_Daily Scrum Meeting currently in progress._" + participantsDone,
+                    "text": "_Daily Scrum Meeting currently in progress._" + participantsDone + currentSpeaker,
                     "fallback": "Shame... buttons aren't supported in this land",
                     "callback_id": "dsm@@@" + dsm._id,
                     "color": Constants.SLACK_COLOR,
@@ -175,6 +176,11 @@ function createParticipantsDone(dsm) {
         messages.push(dsm.participants[id].name + " - " + dsm.participants[id].time);
     });
     return messages.join("\n");
+}
+
+function createCurrentSpeaker(dsm) {
+    const userId = dsm.meeting.currentSpeaker;
+    return dsm.participants[userId].name + " :stopwatch:";
 }
 
 function createDurationActionList(list) {

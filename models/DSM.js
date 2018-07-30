@@ -49,7 +49,7 @@ class DSM {
     nextParticipant() {
         console.log("dsm=nextParticipant");
         const now = _.now();
-        console.log(this);
+        console.log("before: " + this);
         if (this.meeting.currentSpeaker) {
             console.log("there is a currentSpeaker");
             this.participants[this.meeting.currentSpeaker].time = formatTimeDifference(now, this.meeting.currentSpeakerStartTime);
@@ -61,6 +61,7 @@ class DSM {
             this.meeting.currentSpeakerStartTime = now;
             return true;
         }
+        console.log("after: " + this);
         return false;
     }
 
