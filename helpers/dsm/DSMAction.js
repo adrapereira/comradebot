@@ -28,7 +28,7 @@ module.exports = {
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createPreStartDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
-                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm);
+                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm, user);
                     dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
                     break;
                 case 'start':

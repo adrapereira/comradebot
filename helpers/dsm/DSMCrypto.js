@@ -15,7 +15,7 @@ module.exports = {
     },
     encrypt(text) {
         let iv = crypto.randomBytes(IV_LENGTH);
-        let cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv);
+        let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
         let encrypted = cipher.update(text);
 
         encrypted = Buffer.concat([encrypted, cipher.final()]);
@@ -26,7 +26,7 @@ module.exports = {
         let textParts = text.split(':');
         let iv = new Buffer(textParts.shift(), 'hex');
         let encryptedText = new Buffer(textParts.join(':'), 'hex');
-        let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(ENCRYPTION_KEY), iv);
+        let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
         let decrypted = decipher.update(encryptedText);
 
         decrypted = Buffer.concat([decrypted, decipher.final()]);
