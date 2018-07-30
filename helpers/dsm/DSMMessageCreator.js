@@ -87,30 +87,6 @@ module.exports = {
         };
         return message;
     },
-    createLinkDsm: function (dsm) {
-        const message = {
-            "text": "",
-            "attachments": [
-                {
-                    "text": "Click the button to join the call",
-                    "fallback": "Join the call: " + dsm.link,
-                    "callback_id": "dsm@@@" + dsm._id,
-                    "color": Constants.SLACK_COLOR,
-                    "attachment_type": "default",
-                    "actions": [
-                        {
-                            "name": "clickLink",
-                            "text": "Join Call",
-                            "type": "button",
-                            "value": "clickLink@@@manage",
-                            "url": dsm.link
-                        }
-                    ]
-                }
-            ]
-        };
-        return message;
-    },
     createManageDsm: function (dsm) {
         const message = {
             "text": "",
@@ -145,8 +121,61 @@ module.exports = {
             ]
         };
         return message;
+    },
+    createInProgressMessage(dsm) {
+        let participantsDone = createParticipantsDone(dsm);
+        if (participantsDone) {
+            participantsDone = "\n" + participantsDone;
+        }
+        const message = {
+            "text": "",
+            "attachments": [
+                {
+                    "text": "_Daily Scrum Meeting currently in progress._" + participantsDone,
+                    "fallback": "Shame... buttons aren't supported in this land",
+                    "callback_id": "dsm@@@" + dsm._id,
+                    "color": Constants.SLACK_COLOR,
+                    "attachment_type": "default"
+                }
+            ]
+        };
+        return message;
+    },
+    createInProgressMessage(dsm) {
+        const message = {
+            "text": "",
+            "attachments": [
+                {
+                    "text": "It's your turn to share your progress. Follow these questions to guide your discourse:\n" +
+                        "1. What did you do yesterday?\n" +
+                        "2. What will you do today?\n" +
+                        "3. Are there any impediments in your way?",
+                    "fallback": "Shame... buttons aren't supported in this land",
+                    "callback_id": "dsm@@@" + dsm._id,
+                    "color": Constants.SLACK_COLOR,
+                    "attachment_type": "default",
+                    "actions": [
+                        {
+                            "name": "endTurn",
+                            "text": "End Turn",
+                            "type": "button",
+                            "value": "endTurn@@@manage"
+                        }
+                    ]
+                }
+            ]
+        };
+        return message;
     }
 };
+
+function createParticipantsDone(dsm) {
+    let messages = [];
+    dsm.meeting.participantsDone.forEach(function (id) {
+        messages.push(dsm.participants[id].name + " - " + dsm.participants[id].time);
+    });
+    return messages.join("\n");
+}
 
 function createDurationActionList(list) {
     const actions = [];

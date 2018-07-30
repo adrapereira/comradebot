@@ -18,12 +18,10 @@ module.exports = {
             let message;
             switch (actionType) {
                 case 'duration':
-                    console.log("duration");
                     dsm.duration = actionValue;
                     ItemList.update(dsm);
                     break;
                 case 'link':
-                    console.log("link");
                     dsm.link = actionValue;
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createPreStartDsm(dsm);
@@ -32,17 +30,42 @@ module.exports = {
                     dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
                     break;
                 case 'start':
-                    console.log("start");
                     message = dsmMessageCreator.createManageDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
+
+                    console.log("start");
+                    dsm.start();
+                    updateInProgressMsg(dsm);
+                    const participantsLeft = dsm.nextParticipant();
+                    if (participantsLeft) {
+                        postSpeakerMsg(dsm);
+                    }
                     break;
-                case 'join':
-                    console.log("join: " + user.name);
-                    dsm.participants[user.id] = user;
-                    message = dsmMessageCreator.createLinkDsm(dsm);
-                    dsmSlackComms.postEphemeral(dsm.team.token, user.id, dsm, message);
+                case 'endTurn':
+                    console.log("endTurn");
+
+                    if (dsm.meeting.currentSpeaker === user.id) {
+                        console.log("speaker is the same");
+
+                        const participantsLeft = dsm.nextParticipant();
+                        dsmSlackComms.deleteEphemeral(responseURL);
+                        if (participantsLeft) {
+                            postSpeakerMsg(dsm);
+                        }
+                    }
+                    updateInProgressMsg(dsm);
                     break;
             }
         }).catch(console.log);
     }
 };
+
+function updateInProgressMsg(dsm) {
+    const inProgressMsg = dsmMessageCreator.createInProgressMessage(dsm);
+    dsmSlackComms.updateMessage(dsm.team.token, dsm.channel, dsm.message_ts, inProgressMsg);
+}
+
+function postSpeakerMsg(dsm) {
+    const postSpeakerMsg = dsmMessageCreator.createInProgressMessage(dsm);
+    dsmSlackComms.postEphemeral(dsm.team.token, dsm.meeting.currentSpeaker, dsm, postSpeakerMsg);
+}

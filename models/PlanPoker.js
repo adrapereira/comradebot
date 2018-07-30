@@ -1,3 +1,5 @@
+const _ = require("underscore");
+
 class PlanPoker {
     constructor(id, creator, channel, title, team){
         this._id = id;
@@ -9,6 +11,7 @@ class PlanPoker {
         this.manage_message_ts;
         this.votes = {};
     }
+
     mapObjectToThis(obj) {
         obj && Object.assign(this, obj);
     }
@@ -25,7 +28,7 @@ class PlanPoker {
         let counts = {};
         let result = {};
 
-        const voteValues = Object.keys(this.votes).map(k => this.votes[k]);
+        const voteValues = _.values(this.votes);
         for (let i = 0; i < voteValues.length; i++) {
             const num = voteValues[i];
             counts[num] = counts[num] ? counts[num] + 1 : 1;

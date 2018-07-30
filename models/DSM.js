@@ -1,3 +1,5 @@
+const _ = require("underscore");
+
 class DSM {
     constructor(id, creator, channel, team) {
         this._id = id;
@@ -9,6 +11,13 @@ class DSM {
         this.participants = {};
         this._duration;
         this.link;
+        this.meeting = {
+            startTime: null,
+            participantLeft: [],
+            participantsDone: [],
+            currentSpeaker: null,
+            currentSpeakerStartTime: null
+        }
     }
 
     get duration() {
@@ -25,10 +34,46 @@ class DSM {
         this._duration = dur;
     }
 
+    addParticipant(user) {
+        this.participants[user.id] = user;
+    }
+
+    start() {
+        console.log("dsm=start");
+        let userIds = Object.keys(this.participants);
+        _.shuffle(userIds);
+        this.meeting.participantLeft = userIds;
+        this.meeting.startTime = _.now();
+    }
+
+    nextParticipant() {
+        console.log("dsm=nextParticipant");
+        const now = _.now();
+        if (this.meeting.currentSpeaker) {
+            this.participants[this.meeting.currentSpeaker].time = formatTimeDifference(now, this.meeting.currentSpeakerStartTime);
+            this.meeting.participantsDone.push(this.meeting.currentSpeaker);
+        }
+        if (this.meeting.participantLeft.length > 0) {
+            this.meeting.currentSpeaker = this.meeting.participantLeft.pop();
+            this.meeting.currentSpeakerStartTime = now;
+            return true;
+        }
+        return false;
+    }
+
     mapObjectToThis(obj) {
         obj && Object.assign(this, obj);
     }
+}
 
+function formatTimeDifference(timeNow, timeEarlier) {
+    let difference = timeNow - timeEarlier;
+    let minutes = Math.floor(difference / 1000 / 60);
+    difference -= minutes * 1000 * 60;
+
+    let seconds = Math.floor(difference / 1000);
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+    return minutes + ":" + seconds;
 }
 
 module.exports = DSM;

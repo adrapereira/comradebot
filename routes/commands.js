@@ -64,8 +64,11 @@ router.post('/dsm', urlencodedParser, function (req, res) {
 router.get('/dsm', urlencodedParser, function (req, res) {
     const decryptedString = DSMCrypto.decrypt(req.query.d);
     const dsmData = JSON.parse(decryptedString);
-    console.log(dsmData);
+
     ItemList.get(dsmData.id).then(function (item) {
+        const dsm = new DSM();
+        dsm.mapObjectToThis(item);
+        dsm.addParticipant(dsmData.user);
         res.status(301).redirect(item.link);
     }).catch(console.log);
 });
