@@ -181,7 +181,7 @@ function createParticipantsDone(dsm) {
 function createCurrentSpeaker(dsm) {
     if (dsm.meeting.currentSpeaker) {
         const userId = dsm.meeting.currentSpeaker;
-        return "\n" + dsm.participants[userId].name + " :stopwatch:";
+        return "\n*" + dsm.participants[userId].name + "* :stopwatch:";
     }
     return "";
 }

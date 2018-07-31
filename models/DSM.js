@@ -60,6 +60,9 @@ class DSM {
             this.meeting.currentSpeaker = this.meeting.participantsLeft.pop();
             this.meeting.currentSpeakerStartTime = now;
             return true;
+        } else {
+            this.meeting.currentSpeaker = null;
+            this.meeting.currentSpeakerStartTime = null;
         }
         console.log("after: " + this);
         return false;
