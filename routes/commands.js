@@ -68,6 +68,9 @@ router.get('/dsm', urlencodedParser, function (req, res) {
     ItemList.get(dsmData.id).then(function (item) {
         const dsm = new DSM();
         dsm.mapObjectToThis(item);
+        console.log("addParticipant");
+        console.log(dsmData.user);
+        console.log(dsm);
         dsm.addParticipant(dsmData.user);
         res.status(301).redirect(item.link);
     }).catch(console.log);
