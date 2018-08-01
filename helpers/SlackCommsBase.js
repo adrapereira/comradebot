@@ -36,7 +36,7 @@ module.exports = {
         });
     },
     getChannelUsers: function (token, channel) {
-        return slack.conversations.members({
+        return slack.channels.info({
             token: token,
             channel: channel
         });
