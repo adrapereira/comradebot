@@ -8,7 +8,10 @@ module.exports = {
     encryptForUrl(dsm, user) {
         const json = {
             id: dsm._id,
-            user: user
+            user: {
+                id: user.id,
+                name: user.name
+            }
         };
         const text = JSON.stringify(json);
         return this.encrypt(text);

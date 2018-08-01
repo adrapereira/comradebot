@@ -26,8 +26,8 @@ module.exports = {
                     ItemList.update(dsm);
                     message = dsmMessageCreator.createPreStartDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
-                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm, user);
-                    dsmSlackComms.postMessage(dsm.team.token, dsm, joinMsg);
+
+                    postJoinDSMMessages(dsm);
                     break;
                 case 'start':
                     message = dsmMessageCreator.createManageDsm(dsm);
@@ -40,12 +40,6 @@ module.exports = {
                         postSpeakerMsg(dsm);
                     }
                     updateInProgressMsg(dsm);
-                    break;
-                case 'join':
-                    console.log("join");
-                    console.log(dsm);
-                    dsm.addParticipant(user);
-                    res.status(301).redirect(dsm.link);
                     break;
                 case 'endTurn':
                     console.log("endTurn");
@@ -65,6 +59,25 @@ module.exports = {
         }).catch(console.log);
     }
 };
+
+function postJoinDSMMessages(dsm) {
+    dsmSlackComms.getAllUsersInChannel(dsm.team.token).catch(console.log).then(function (allUsersResult) {
+        console.log("All users result");
+        const allMembers = allUsersResult.members;
+        dsmSlackComms.getChannelUsers(dsm.team.token, dsm.channel).catch(console.log).then(function (result) {
+            console.log("get channel users");
+            const users = result.members;
+            users.forEach(function (user) {
+                const resultUser = allMembers.filter(obj => {
+                    return obj.id === user
+                });
+                const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
+                dsmSlackComms.postEphemeral(dsm.team.token, user, dsm, joinMsg);
+            })
+        });
+    });
+
+}
 
 function updateInProgressMsg(dsm) {
     const inProgressMsg = dsmMessageCreator.createInProgressMessage(dsm);

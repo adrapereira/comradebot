@@ -28,6 +28,12 @@ module.exports = {
                 }
             );
     },
+    getChannelUsers: function (token, channel) {
+        return SlackCommsBase.getChannelUsers(token, channel);
+    },
+    getAllUsersInChannel: function (token) {
+        return SlackCommsBase.getAllUsersInWorkspace(token);
+    },
     updateEphemeral: function (url, message) {
         SlackCommsBase.updateEphemeral(url, message);
     },

@@ -35,6 +35,17 @@ module.exports = {
             user: userId
         });
     },
+    getChannelUsers: function (token, channel) {
+        return slack.conversations.members({
+            token: token,
+            channel: channel
+        });
+    },
+    getAllUsersInWorkspace: function (token) {
+        return slack.users.list({
+            token: token
+        });
+    },
     updateEphemeral: function (url, message) {
         sendMessageToURL(url, {
             "response_type": "ephemeral",
