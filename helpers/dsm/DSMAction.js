@@ -45,7 +45,7 @@ module.exports = {
                     console.log("join");
                     console.log(dsm);
                     dsm.addParticipant(user);
-                    res.status(301).redirect(item.link);
+                    res.status(301).redirect(dsm.link);
                     break;
                 case 'endTurn':
                     console.log("endTurn");
