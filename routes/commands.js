@@ -49,6 +49,7 @@ router.post('/dsm', urlencodedParser, function (req, res) {
     } else {
         res.status(200).end(); // best practice to respond with empty 200 status code
         const id = crypto.randomBytes(16).toString("hex");
+        console.log({id});
         dbService.getItem(reqBody.team_id, function (dbItem) {
             let team = new Team();
             team.mapObjectToThis(dbItem);
