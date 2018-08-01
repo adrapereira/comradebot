@@ -79,7 +79,7 @@ module.exports = {
                             "text": "Join Meeting",
                             "type": "button",
                             "value": "join@@@manage",
-                            "url": "https://scrumbot.tk/commands/dsm?d=" + DSMCrypto.encryptForUrl(dsm, user)
+                            // "url": "https://scrumbot.tk/commands/dsm?d=" + DSMCrypto.encryptForUrl(dsm, user)
                         }
                     ]
                 }

@@ -19,10 +19,10 @@ router.post('/', urlencodedParser, function(req, res) {
     const responseURL = payload.response_url;
     const callbackId = payload.callback_id;
 
-    executeAction(callbackId, buttonAction, payload.user, responseURL);
+    executeAction(callbackId, buttonAction, payload.user, responseURL, res);
 });
 
-function executeAction(callbackId, buttonAction, user, responseURL) {
+function executeAction(callbackId, buttonAction, user, responseURL, res) {
     const actionSplit = callbackId.split("@@@");
     const actionType = actionSplit[0];
     const actionId = actionSplit[1];
@@ -31,7 +31,7 @@ function executeAction(callbackId, buttonAction, user, responseURL) {
             planPokerAction.execute(buttonAction, actionId, user.name, responseURL);
             break;
         case 'dsm':
-            dsmAction.execute(buttonAction, actionId, user, responseURL);
+            dsmAction.execute(buttonAction, actionId, user, responseURL, res);
             break;
     }
 }

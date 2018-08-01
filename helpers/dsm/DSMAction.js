@@ -4,7 +4,7 @@ const dsmSlackComms = require('./DSMSlackComms');
 const DSM = require('../../models/DSM');
 
 module.exports = {
-    execute: function (action, dsmId, user, responseURL) {
+    execute: function (action, dsmId, user, responseURL, res) {
         ItemList.get(dsmId).then(function (item) {
             let dsm = new DSM();
             dsm.mapObjectToThis(item);
@@ -40,6 +40,12 @@ module.exports = {
                         postSpeakerMsg(dsm);
                     }
                     updateInProgressMsg(dsm);
+                    break;
+                case 'join':
+                    console.log("join");
+                    console.log(dsm);
+                    dsm.addParticipant(user);
+                    res.status(301).redirect(item.link);
                     break;
                 case 'endTurn':
                     console.log("endTurn");
