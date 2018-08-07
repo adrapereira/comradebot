@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 
 router.post('/', urlencodedParser, function(req, res) {
-    // res.status(200).end(); // best practice to respond with 200 status
+    res.status(200).end(); // best practice to respond with 200 status
     const payload = JSON.parse(req.body.payload);
     // const payload = req.body.payload;
 
@@ -26,9 +26,6 @@ function executeAction(callbackId, buttonAction, user, responseURL, res) {
     const actionSplit = callbackId.split("@@@");
     const actionType = actionSplit[0];
     const actionId = actionSplit[1];
-    if (!buttonAction.includes("join")) {
-        res.status(200).end();
-    }
     switch (actionType){
         case 'pp':
             planPokerAction.execute(buttonAction, actionId, user.name, responseURL);

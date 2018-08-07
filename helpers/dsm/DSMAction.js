@@ -71,8 +71,10 @@ function postJoinDSMMessages(dsm) {
                 const resultUser = allMembers.filter(obj => {
                     return obj.id === user
                 });
-                const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
-                dsmSlackComms.postEphemeral(dsm.team.token, user, dsm, joinMsg);
+                if (resultUser) {
+                    const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
+                    dsmSlackComms.postEphemeral(dsm.team.token, user, dsm, joinMsg);
+                }
             })
         });
     });
