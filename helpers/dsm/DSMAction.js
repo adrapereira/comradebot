@@ -65,17 +65,15 @@ module.exports = {
 
 function postJoinDSMMessages(dsm) {
     dsmSlackComms.getAllUsersInChannel(dsm.team.token).catch(console.log).then(function (allUsersResult) {
-        console.log(allUsersResult);
         const allMembers = allUsersResult.members;
         dsmSlackComms.getChannelUsers(dsm.team.token, dsm.channel).catch(console.log).then(function (result) {
-            console.log(result);
             const users = result.members;
             users.forEach(function (user) {
                 const resultUser = allMembers.filter(obj => {
                     return obj.id === user
                 });
+                console.log({resultUser});
                 if (resultUser) {
-                    console.log('Sending message to ' + resultUser.name);
                     const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
                     dsmSlackComms.postManageMsg(dsm.team.token, user, dsm, joinMsg);
                 }

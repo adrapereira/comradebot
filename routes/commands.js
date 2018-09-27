@@ -63,7 +63,6 @@ router.post('/dsm', urlencodedParser, function (req, res) {
 });
 
 router.get('/dsm', urlencodedParser, function (req, res) {
-    console.log(req);
     const decryptedString = DSMCrypto.decrypt(req.query.d);
     const dsmData = JSON.parse(decryptedString);
 
