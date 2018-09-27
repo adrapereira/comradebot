@@ -8,6 +8,7 @@ class DSM {
         this.team = team;
         this.message_ts;
         this.manage_message_ts;
+        this.join_ts_list = [];
         this.participants = {};
         this._duration;
         this.link;

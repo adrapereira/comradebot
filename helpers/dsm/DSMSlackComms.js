@@ -19,11 +19,20 @@ module.exports = {
         SlackCommsBase.deleteMessage(token, channel, ts)
             .then().catch(console.log);
     },
-    postEphemeral: function (token, userId, dsm, message) {
+    postManageMsg: function (token, userId, dsm, message) {
         SlackCommsBase.postEphemeral(token, userId, dsm.channel, message)
             .catch(console.log)
             .then(function (value) {
                     dsm.manage_message_ts = value.message_ts;
+                    ItemList.update(dsm);
+                }
+            );
+    },
+    postJoinMsg: function (token, userId, dsm, message) {
+        SlackCommsBase.postEphemeral(token, userId, dsm.channel, message)
+            .catch(console.log)
+            .then(function (value) {
+                    dsm.join_ts_list.push(value.message_ts);
                     ItemList.update(dsm);
                 }
             );
