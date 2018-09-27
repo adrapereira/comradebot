@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var commandsRouter = require('./routes/commands');
 var actionsRouter = require('./routes/actions');
 var signupRouter = require('./routes/signup');
@@ -26,10 +25,9 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/commands', commandsRouter);
-app.use('/actions', actionsRouter);
-app.use('/signup', signupRouter);
+app.use('/slack/commands', commandsRouter);
+app.use('/slack/actions', actionsRouter);
+app.use('/slack/signup', signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
