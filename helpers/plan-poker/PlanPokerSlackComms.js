@@ -19,7 +19,7 @@ module.exports = {
         SlackCommsBase.deleteMessage(token, channel, ts)
             .then().catch(console.log);
     },
-    postEphemeral: function(token, userId, planPoker, message){
+    postEphemeral: function (token, userId, planPoker, message) {
         SlackCommsBase.postEphemeral(token, userId, planPoker.channel, message)
             .catch(console.log)
             .then(function(value) {

@@ -40,6 +40,9 @@ module.exports = {
                         postSpeakerMsg(dsm);
                     }
                     updateInProgressMsg(dsm);
+                    dsm.join_ts_list.forEach(function (user) {
+                        dsmSlackComms.deleteEphemeral()
+                    });
                     break;
                 case 'endTurn':
                     console.log("endTurn");
@@ -62,18 +65,19 @@ module.exports = {
 
 function postJoinDSMMessages(dsm) {
     dsmSlackComms.getAllUsersInChannel(dsm.team.token).catch(console.log).then(function (allUsersResult) {
-        console.log("All users result");
+        console.log(allUsersResult);
         const allMembers = allUsersResult.members;
         dsmSlackComms.getChannelUsers(dsm.team.token, dsm.channel).catch(console.log).then(function (result) {
-            console.log("get channel users");
+            console.log(result);
             const users = result.members;
             users.forEach(function (user) {
                 const resultUser = allMembers.filter(obj => {
                     return obj.id === user
                 });
                 if (resultUser) {
+                    console.log('Sending message to ' + resultUser);
                     const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
-                    dsmSlackComms.postEphemeral(dsm.team.token, user, dsm, joinMsg);
+                    dsmSlackComms.postManageMsg(dsm.team.token, user, dsm, joinMsg);
                 }
             })
         });
@@ -88,5 +92,5 @@ function updateInProgressMsg(dsm) {
 
 function postSpeakerMsg(dsm) {
     const postSpeakerMsg = dsmMessageCreator.createSpeakerMessage(dsm);
-    dsmSlackComms.postEphemeral(dsm.team.token, dsm.meeting.currentSpeaker, dsm, postSpeakerMsg);
+    dsmSlackComms.postManageMsg(dsm.team.token, dsm.meeting.currentSpeaker, dsm, postSpeakerMsg);
 }
