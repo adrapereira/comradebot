@@ -39,8 +39,8 @@ module.exports = {
                         postSpeakerMsg(dsm);
                     }
                     updateInProgressMsg(dsm);
-                    dsm.join_ts_list.forEach(function (url) {
-                        dsmSlackComms.deleteEphemeral(url);
+                    dsm.join_ts_list.forEach(function (ts) {
+                        dsmSlackComms.deleteMessage(dsm.team.token, dsm.channel, ts);
                     });
                     break;
                 case 'endTurn':
