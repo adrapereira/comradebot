@@ -75,7 +75,7 @@ function postJoinDSMMessages(dsm) {
                     return obj.id === user
                 });
                 if (resultUser) {
-                    console.log('Sending message to ' + resultUser);
+                    console.log('Sending message to ' + resultUser.name);
                     const joinMsg = dsmMessageCreator.createJoinDsm(dsm, resultUser);
                     dsmSlackComms.postManageMsg(dsm.team.token, user, dsm, joinMsg);
                 }
