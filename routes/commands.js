@@ -57,21 +57,20 @@ router.post('/dsm', urlencodedParser, function (req, res) {
             ItemList.add(dsm);
 
             const message = dsmMessageCreator.createConfigureDsm(dsm);
-            dsmSlackComms.postEphemeral(team.token, reqBody.user_id, dsm, message);
+            dsmSlackComms.postManageMsg(team.token, reqBody.user_id, dsm, message);
         });
     }
 });
 
 router.get('/dsm', urlencodedParser, function (req, res) {
+    console.log(req);
     const decryptedString = DSMCrypto.decrypt(req.query.d);
     const dsmData = JSON.parse(decryptedString);
 
     ItemList.get(dsmData.id).then(function (item) {
         const dsm = new DSM();
         dsm.mapObjectToThis(item);
-        console.log("addParticipant");
-        console.log(dsmData.user);
-        console.log(dsm);
+        console.log("addParticipant: " + dsmData.user.id);
         dsm.addParticipant(dsmData.user);
         res.status(301).redirect(item.link);
     }).catch(console.log);
