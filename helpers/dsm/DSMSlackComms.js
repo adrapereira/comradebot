@@ -32,6 +32,7 @@ module.exports = {
         SlackCommsBase.postEphemeral(token, userId, dsm.channel, message)
             .catch(console.log)
             .then(function (value) {
+                console.log(value);
                     dsm.join_ts_list.push(value.message_ts);
                     ItemList.update(dsm);
                 }

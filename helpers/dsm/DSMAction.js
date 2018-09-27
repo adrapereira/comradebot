@@ -33,15 +33,14 @@ module.exports = {
                     message = dsmMessageCreator.createManageDsm(dsm);
                     dsmSlackComms.updateEphemeral(responseURL, message);
 
-                    console.log("start");
                     dsm.start();
                     const participantsLeft = dsm.nextParticipant();
                     if (participantsLeft) {
                         postSpeakerMsg(dsm);
                     }
                     updateInProgressMsg(dsm);
-                    dsm.join_ts_list.forEach(function (user) {
-                        dsmSlackComms.deleteEphemeral()
+                    dsm.join_ts_list.forEach(function (url) {
+                        dsmSlackComms.deleteEphemeral(url);
                     });
                     break;
                 case 'endTurn':
@@ -75,7 +74,7 @@ function postJoinDSMMessages(dsm) {
                 if (resultUser && resultUser.length > 0) {
                     const userToSendMessage = resultUser[0];
                     const joinMsg = dsmMessageCreator.createJoinDsm(dsm, userToSendMessage);
-                    dsmSlackComms.postManageMsg(dsm.team.token, user, dsm, joinMsg);
+                    dsmSlackComms.postJoinMsg(dsm.team.token, user, dsm, joinMsg);
                 }
             })
         });
