@@ -114,12 +114,13 @@ module.exports = {
 };
 
 function joinVotes(planPoker){
-    let voteKeys = Object.keys(planPoker.votes);
-    let voteKeysSorted = new Map([...voteKeys.entries()].sort((a, b) => b[1] - a[1]));
+    let sortedVotes = planPoker.votes.sort(function(a, b) {
+        return a.value - b.value;
+    });
     let votesAsString = [];
-    for (let i = 0; i < voteKeysSorted.length; i++) {
-        const user = voteKeysSorted[i];
-        const vote = planPoker.votes[user];
+    for (const entry of sortedVotes.entries()) {
+        const user = entry[0],
+        vote = entry[1];
         votesAsString.push(user + ": *" + vote + "*");
     }
     return votesAsString.join(", ");
