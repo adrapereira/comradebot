@@ -127,7 +127,7 @@ function joinVotes(planPoker){
 }
 
 function usersThatVotedMessage(planPoker){
-    const users = Object.keys(planPoker.votes);
+    const users = planPoker.votes.keys();
     if(users.length > 0){
         let endOfMessage = " have voted";
         if(users.length === 1){
