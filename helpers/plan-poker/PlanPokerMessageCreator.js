@@ -114,9 +114,7 @@ module.exports = {
 };
 
 function joinVotes(planPoker){
-    let sortedVotes = planPoker.votes.sort(function(a, b) {
-        return a.value - b.value;
-    });
+    let sortedVotes = new Map([...planPoker.votes.entries()].sort((a, b) => a.value - b.value));
     let votesAsString = [];
     for (const entry of sortedVotes.entries()) {
         const user = entry[0],
