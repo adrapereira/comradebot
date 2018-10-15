@@ -9,7 +9,6 @@ module.exports = {
         text += "Please place your vote:";
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
-            "response_type": "in_channel",
             "attachments": [
                 {
                     "text": text,
@@ -78,6 +77,7 @@ module.exports = {
         const text = "_Only you can manage the voting!_\nOnce everyone has placed their votes, click *Finish* to end the voting.";
         const message = {
             "text": "",
+            "response_type": "in_channel",
             "attachments": [
                 {
                     "text": text,
