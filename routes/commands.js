@@ -24,7 +24,7 @@ router.post('/pp', urlencodedParser, function(req, res) {
     if (!isRequestValid(reqBody.token)) {
         res.status(403).end("Access forbidden")
     }else{
-        res.status(200).json({"response_type": "in_channel"}); // best practice to respond with empty 200 status code
+        res.status(200).json({"response_type": "in_channel"}); // post back the command as posted by the user
         const id = crypto.randomBytes(16).toString("hex");
         dbService.getItem(reqBody.team_id, function (dbItem) {
             let team = new Team();

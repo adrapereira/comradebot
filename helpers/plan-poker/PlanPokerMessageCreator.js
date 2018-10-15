@@ -120,7 +120,7 @@ function joinVotes(planPoker){
     for (let i = 0; i < voteKeysSorted.length; i++) {
         const user = voteKeysSorted[i];
         const vote = planPoker.votes[user];
-        votesAsString.push(user + ": *" + vote + "*");
+        votesAsString.push("@" + user + ": *" + vote + "*");
     }
     return votesAsString.join(", ");
 }
