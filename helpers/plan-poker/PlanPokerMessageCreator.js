@@ -116,9 +116,11 @@ module.exports = {
 function joinVotes(planPoker){
     console.log("to sort: ");
     console.log(planPoker.votes);
-    let sortedVotes = new Map([...planPoker.votes.entries()].sort((a, b) => a.value - b.value));
+    planPoker.votes[Symbol.iterator] = function* () {
+        yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
+    }
     console.log("sorted:");
-    console.log(sortedVotes);
+    console.log(planPoker.votes);
 
     let votesAsString = [];
     for (const entry of sortedVotes.entries()) {
