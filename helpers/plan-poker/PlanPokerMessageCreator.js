@@ -1,6 +1,7 @@
 const Constants = require('../../models/Constants');
 module.exports = {
     createVoting: function(planPoker){
+        console.log("creating users that voted message");
         const usersThatVoted = usersThatVotedMessage(planPoker);
         var text = "";
         if(usersThatVoted){
@@ -128,6 +129,7 @@ function joinVotes(planPoker){
 
 function usersThatVotedMessage(planPoker){
     const users = planPoker.votes.keys();
+    console.log(users);
     if(users.length > 0){
         let endOfMessage = " have voted";
         if(users.length === 1){
