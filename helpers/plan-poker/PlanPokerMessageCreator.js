@@ -142,6 +142,7 @@ function usersThatVotedMessage(planPoker){
 }
 
 function joinListString(list){
+    console.log(list);
     return [list.slice(0, -1).join(', '), list.slice(-1)[0]].join(list.length < 2 ? '' : ' and ');
 }
 
