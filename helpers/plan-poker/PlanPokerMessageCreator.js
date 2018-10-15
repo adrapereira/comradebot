@@ -77,7 +77,6 @@ module.exports = {
         const text = "_Only you can manage the voting!_\nOnce everyone has placed their votes, click *Finish* to end the voting.";
         const message = {
             "text": "",
-            "response_type": "in_channel",
             "attachments": [
                 {
                     "text": text,
