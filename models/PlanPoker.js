@@ -9,7 +9,7 @@ class PlanPoker {
         this.team = team;
         this.message_ts;
         this.manage_message_ts;
-        this.votes = {};
+        this.votes = new Map();
     }
 
     mapObjectToThis(obj) {
@@ -17,18 +17,18 @@ class PlanPoker {
     }
 
     addVote(username, value) {
-        this.votes[username] = value;
+        this.votes.set(username, value);
     };
 
     reset(){
-        this.votes = {};
+        this.votes = new Map();
     };
 
     finish() {
         let counts = {};
         let result = {};
 
-        const voteValues = _.values(this.votes);
+        const voteValues = this.votes.values();
         for (let i = 0; i < voteValues.length; i++) {
             const num = voteValues[i];
             counts[num] = counts[num] ? counts[num] + 1 : 1;
