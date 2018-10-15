@@ -28,15 +28,9 @@ class PlanPoker {
         let counts = {};
         let result = {};
 
-        console.log("before counting votes");
-        const voteValues = this.votes.values();
-        console.log(voteValues);
         this.votes.forEach(function (value, key, map) {
             counts[value] = counts[value] ? counts[value] + 1 : 1;
         });
-
-        console.log("after counting votes");
-        console.log(counts);
 
         const countsKeys = Object.keys(counts);
         let maxVal;
