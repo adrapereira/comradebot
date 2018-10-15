@@ -118,14 +118,13 @@ function joinVotes(planPoker){
     console.log(planPoker.votes);
     planPoker.votes[Symbol.iterator] = function* () {
         yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
-    }
+    };
     console.log("sorted:");
     console.log(planPoker.votes);
 
     let votesAsString = [];
-    for (const entry of planPoker.votes.entries()) {
-        const user = entry[0],
-        vote = entry[1];
+    for (let [user, vote] of planPoker.votes) {
+        console.log(user + " - " + vote);
         votesAsString.push(user + ": *" + vote + "*");
     }
     return votesAsString.join(", ");
