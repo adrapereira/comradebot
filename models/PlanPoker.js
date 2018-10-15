@@ -30,7 +30,8 @@ class PlanPoker {
 
         console.log("before counting votes");
         const voteValues = this.votes.values();
-        voteValues.forEach(function (value, key, map) {
+        console.log(voteValues);
+        this.votes.forEach(function (value, key, map) {
             counts[value] = counts[value] ? counts[value] + 1 : 1;
         });
 
