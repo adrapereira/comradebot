@@ -122,7 +122,7 @@ function joinVotes(planPoker){
 
     let votesAsString = [];
     for (let [user, vote] of planPoker.votes) {
-        votesAsString.push(util.format("`%s`: *%s*", user, vote);
+        votesAsString.push(util.format("`%s`: *%s*", user, vote));
     }
     return votesAsString.join("\n");
 }
