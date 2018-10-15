@@ -1,7 +1,6 @@
 const Constants = require('../../models/Constants');
 module.exports = {
     createVoting: function(planPoker){
-        console.log("creating users that voted message");
         const usersThatVoted = usersThatVotedMessage(planPoker);
         var text = "";
         if(usersThatVoted){
@@ -140,7 +139,6 @@ function usersThatVotedMessage(planPoker){
 }
 
 function joinListString(list){
-    console.log(list);
     return [list.slice(0, -1).join(', '), list.slice(-1)[0]].join(list.length < 2 ? '' : ' and ');
 }
 

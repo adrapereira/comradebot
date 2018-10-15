@@ -32,14 +32,12 @@ module.exports = {
                 case "20" : case "40"  : case "100": case "?" :
                 case ":coffee:":
                     if(planPoker){
-                        console.log("adding votes");
                         planPoker.addVote(username, action);
                         planPoker.addVote("ze1", "3");
                         planPoker.addVote("bab1", "5");
                         planPoker.addVote("car5", "2");
                         planPoker.addVote("kk", "3");
                         planPoker.addVote("wwwa", "3");
-                        console.log("updating item list");
                         ItemList.update(planPoker);
                         message = planPokerMessageCreator.createVoting(planPoker);
                     }
