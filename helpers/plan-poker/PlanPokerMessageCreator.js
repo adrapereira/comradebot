@@ -1,4 +1,6 @@
 const Constants = require('../../models/Constants');
+const util = require('util');
+
 module.exports = {
     createVoting: function(planPoker){
         const usersThatVoted = usersThatVotedMessage(planPoker);
@@ -57,7 +59,6 @@ module.exports = {
                 }
             ]
         };
-        console.log(message);
         return message;
     },
     createVotingCanceled: function(planPoker){
@@ -121,9 +122,9 @@ function joinVotes(planPoker){
 
     let votesAsString = [];
     for (let [user, vote] of planPoker.votes) {
-        votesAsString.push(user + ": *" + vote + "*");
+        votesAsString.push(util.format("`%s`: *%s*", user, vote);
     }
-    return votesAsString.join(", ");
+    return votesAsString.join("\n");
 }
 
 function usersThatVotedMessage(planPoker){
