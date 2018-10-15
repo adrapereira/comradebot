@@ -57,6 +57,7 @@ module.exports = {
                 }
             ]
         };
+        console.log(message);
         return message;
     },
     createVotingCanceled: function(planPoker){
@@ -114,17 +115,12 @@ module.exports = {
 };
 
 function joinVotes(planPoker){
-    console.log("to sort: ");
-    console.log(planPoker.votes);
     planPoker.votes[Symbol.iterator] = function* () {
         yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
     };
-    console.log("sorted:");
-    console.log(planPoker.votes);
 
     let votesAsString = [];
     for (let [user, vote] of planPoker.votes) {
-        console.log(user + " - " + vote);
         votesAsString.push(user + ": *" + vote + "*");
     }
     return votesAsString.join(", ");
