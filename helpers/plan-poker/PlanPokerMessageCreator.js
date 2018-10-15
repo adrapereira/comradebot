@@ -9,6 +9,7 @@ module.exports = {
         text += "Please place your vote:";
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
+            "response_type": "in_channel",
             "attachments": [
                 {
                     "text": text,
