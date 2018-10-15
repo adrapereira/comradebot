@@ -130,12 +130,12 @@ function joinVotes(planPoker){
 function usersThatVotedMessage(planPoker){
     const users = planPoker.votes.keys();
     console.log(users);
-    if(users.length > 0){
+    if(users.size > 0){
         let endOfMessage = " have voted";
-        if(users.length === 1){
+        if(users.size === 1){
             endOfMessage = " has voted";
         }
-        const usersJoined = joinListString(users);
+        const usersJoined = joinListString(Array.from(users.entries()));
         return usersJoined + endOfMessage;
     }
     return undefined;
