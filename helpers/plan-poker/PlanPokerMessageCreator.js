@@ -123,7 +123,7 @@ function joinVotes(planPoker){
     console.log(planPoker.votes);
 
     let votesAsString = [];
-    for (const entry of sortedVotes.entries()) {
+    for (const entry of planPoker.votes.entries()) {
         const user = entry[0],
         vote = entry[1];
         votesAsString.push(user + ": *" + vote + "*");
