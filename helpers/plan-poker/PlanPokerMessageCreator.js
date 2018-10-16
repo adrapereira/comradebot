@@ -43,7 +43,9 @@ module.exports = {
 
         if(finished && finished.max){
             attachmentsList.push(buildMostVotedAttachment(finished));
+            console.log("attachmentList: " + attachmentsList.length);
             attachmentsList.push(buildVotesAttachment(planPoker));
+            console.log("attachmentList: " + attachmentsList.length);
         }else{
             attachmentsList.push({
                 "text": "_The session ended without votes_",
@@ -52,6 +54,8 @@ module.exports = {
                 "color": Constants.SLACK_COLOR,
             });
         }
+
+        console.log(attachmentsList);
 
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
