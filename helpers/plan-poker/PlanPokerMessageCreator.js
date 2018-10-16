@@ -39,23 +39,19 @@ module.exports = {
         return message;
     },
     createVotingFinished: function(planPoker, finished){
-        let text = "";
         let attachmentsList = [];
 
         if(finished && finished.max){
             attachmentsList.push(buildMostVotedAttachment(finished));
-
-            text += "" + joinVotes(planPoker);
+            attachmentsList.push(buildVotesAttachment(planPoker));
         }else{
-            text += "_The session ended without votes_";
+            attachmentsList.push({
+                "text": "_The session ended without votes_",
+                "fallback": "_The session ended without votes_",
+                "callback_id": "plan-poker",
+                "color": Constants.SLACK_COLOR,
+            });
         }
-
-        attachmentsList.push({
-            "text": text,
-            "fallback": text,
-            "callback_id": "plan-poker",
-            "color": Constants.SLACK_COLOR,
-        });
 
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
@@ -117,16 +113,40 @@ module.exports = {
     }
 };
 
-function joinVotes(planPoker){
+function buildVotesAttachment(planPoker){
+    let voteAttachments = [];
+
+    // Sort by value
     planPoker.votes[Symbol.iterator] = function* () {
         yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
     };
 
+    // Create an attachment for each group of 5 users
     let votesAsString = [];
+    let count = 0;
     for (let [user, vote] of planPoker.votes) {
         votesAsString.push(util.format("`%s`: *%s*", user, vote));
+        count++;
+        if(count === 5){
+            voteAttachments.push(createVoteAttachment(votesAsString));
+            count = 0;
+            votesAsString = [];
+        }
     }
-    return votesAsString.join("\n");
+    if(votesAsString.length > 0){
+        voteAttachments.push(createVoteAttachment(votesAsString));
+    }
+    return voteAttachments;
+}
+
+function createVoteAttachment(votesAsString){
+    const fullVotes = votesAsString.join("\n");
+    return {
+        "text": fullVotes,
+        "fallback": fullVotes,
+        "callback_id": "plan-poker",
+        "color": Constants.SLACK_COLOR,
+    };
 }
 
 function usersThatVotedMessage(planPoker){
