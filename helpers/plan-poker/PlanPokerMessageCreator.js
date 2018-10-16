@@ -152,7 +152,8 @@ function usersThatVotedMessage(planPoker){
         if(planPoker.votes.size === 1){
             endOfMessage = " has voted";
         }
-        const usersJoined = joinListString(Array.from(planPoker.votes.keys()));
+        const usersRawList = Array.from(planPoker.votes.keys()).map(x => "<@" + x + ">");
+        const usersJoined = joinListString(usersRawList);
         return usersJoined + endOfMessage;
     }
     return undefined;
