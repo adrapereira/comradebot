@@ -42,7 +42,6 @@ module.exports = {
                         planPoker.addVote("car434g345", "3");
                         planPoker.addVote("wwwsgbsdffcda", "3");
                         planPoker.addVote("zesgsdg1", "3");
-                        planPoker.addVote("baagdggadb1", "3");
                         ItemList.update(planPoker);
                         message = planPokerMessageCreator.createVoting(planPoker);
                     }

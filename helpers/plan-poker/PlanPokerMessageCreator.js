@@ -43,9 +43,7 @@ module.exports = {
 
         if(finished && finished.max){
             attachmentsList.push(buildMostVotedAttachment(finished));
-            console.log("attachmentList: " + attachmentsList.length);
             attachmentsList = attachmentsList.concat(buildVotesAttachment(planPoker));
-            console.log("attachmentList: " + attachmentsList.length);
         }else{
             attachmentsList.push({
                 "text": "_The session ended without votes_",
@@ -54,8 +52,6 @@ module.exports = {
                 "color": Constants.SLACK_COLOR,
             });
         }
-
-        console.log(attachmentsList);
 
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
@@ -129,9 +125,7 @@ function buildVotesAttachment(planPoker){
     let votesAsString = [];
     for (let [user, vote] of planPoker.votes) {
         votesAsString.push(util.format("`%s`: *%s*", user, vote));
-        console.log("size: " + votesAsString.length);
         if(votesAsString.length === 5){
-            console.log("adding new attachment");
             voteAttachments.push(createVoteAttachment(votesAsString));
             votesAsString = [];
         }
@@ -139,8 +133,6 @@ function buildVotesAttachment(planPoker){
     if(votesAsString.length > 0){
         voteAttachments.push(createVoteAttachment(votesAsString));
     }
-    console.log("attachments: " + voteAttachments.length);
-    console.log(voteAttachments);
     return voteAttachments;
 }
 
