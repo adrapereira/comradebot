@@ -123,16 +123,16 @@ function buildVotesAttachment(planPoker){
 
     // Create an attachment for each group of 5 users
     let votesAsString = [];
-    let count = 0;
     for (let [user, vote] of planPoker.votes) {
         votesAsString.push(util.format("`%s`: *%s*", user, vote));
-        count++;
-        if(count === 5){
+        console.log("size: " + votesAsString.length);
+        if(votesAsString.length === 5){
+            console.log("adding new attachment");
             voteAttachments.push(createVoteAttachment(votesAsString));
-            count = 0;
             votesAsString = [];
         }
     }
+    console.log("attachments: " + voteAttachments.length);
     if(votesAsString.length > 0){
         voteAttachments.push(createVoteAttachment(votesAsString));
     }
