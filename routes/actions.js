@@ -28,7 +28,7 @@ function executeAction(callbackId, buttonAction, user, responseURL, res) {
     const actionId = actionSplit[1];
     switch (actionType){
         case 'pp':
-            planPokerAction.execute(buttonAction, actionId, user.name, responseURL);
+            planPokerAction.execute(buttonAction, actionId, user.id, responseURL);
             break;
         case 'dsm':
             dsmAction.execute(buttonAction, actionId, user, responseURL, res);

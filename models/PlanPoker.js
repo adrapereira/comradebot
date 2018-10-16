@@ -16,8 +16,8 @@ class PlanPoker {
         obj && Object.assign(this, obj);
     }
 
-    addVote(username, value) {
-        this.votes.set(username, value);
+    addVote(userId, value) {
+        this.votes.set(userId, value);
     };
 
     reset(){

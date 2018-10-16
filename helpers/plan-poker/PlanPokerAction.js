@@ -4,7 +4,7 @@ const planPokerSlackComms = require('./PlanPokerSlackComms');
 const PlanPoker = require('../../models/PlanPoker');
 
 module.exports = {
-    execute: function (action, planPokerId, username, responseURL) {
+    execute: function (action, planPokerId, userId, responseURL) {
         ItemList.get(planPokerId).then(function (pp) {
             let planPoker = new PlanPoker();
             planPoker.mapObjectToThis(pp);
@@ -32,8 +32,8 @@ module.exports = {
                 case "20" : case "40"  : case "100": case "?" :
                 case ":coffee:":
                     if(planPoker){
-                        planPoker.addVote(username, action);
-                        planPoker.addVote("ze1", "3");
+                        planPoker.addVote(userId, action);
+                        planPoker.addVote("andre2", "3");
                         planPoker.addVote("bab1", "3");
                         planPoker.addVote("car5", "3");
                         planPoker.addVote("wwwa", "3");

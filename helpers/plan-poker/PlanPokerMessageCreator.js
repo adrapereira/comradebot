@@ -124,7 +124,7 @@ function buildVotesAttachment(planPoker){
     // Create an attachment for each group of 5 users
     let votesAsString = [];
     for (let [user, vote] of planPoker.votes) {
-        votesAsString.push(util.format("`%s`: *%s*", user, vote));
+        votesAsString.push(util.format("<@%s>: *%s*", user, vote));
         if(votesAsString.length === 5){
             voteAttachments.push(createVoteAttachment(votesAsString));
             votesAsString = [];
