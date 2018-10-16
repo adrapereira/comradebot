@@ -132,10 +132,11 @@ function buildVotesAttachment(planPoker){
             votesAsString = [];
         }
     }
-    console.log("attachments: " + voteAttachments.length);
     if(votesAsString.length > 0){
         voteAttachments.push(createVoteAttachment(votesAsString));
     }
+    console.log("attachments: " + voteAttachments.length);
+    console.log(voteAttachments);
     return voteAttachments;
 }
 
