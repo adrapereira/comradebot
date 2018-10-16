@@ -44,7 +44,7 @@ module.exports = {
         if(finished && finished.max){
             attachmentsList.push(buildMostVotedAttachment(finished));
             console.log("attachmentList: " + attachmentsList.length);
-            attachmentsList.push(buildVotesAttachment(planPoker));
+            attachmentsList.concat(buildVotesAttachment(planPoker));
             console.log("attachmentList: " + attachmentsList.length);
         }else{
             attachmentsList.push({
