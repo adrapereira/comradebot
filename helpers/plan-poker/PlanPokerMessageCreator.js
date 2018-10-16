@@ -40,24 +40,26 @@ module.exports = {
     },
     createVotingFinished: function(planPoker, finished){
         let text = "";
+        let attachmentsList = [];
+
         if(finished && finished.max){
+            attachmentsList.push(buildMostVotedAttachment(finished));
+
             text += "" + joinVotes(planPoker);
-            text += buildMostVotedMsg(finished.max);
-            text += buildAllSameMsg(finished.allSame);
         }else{
             text += "_The session ended without votes_";
         }
 
+        attachmentsList.push({
+            "text": text,
+            "fallback": text,
+            "callback_id": "plan-poker",
+            "color": Constants.SLACK_COLOR,
+        });
+
         const message = {
             "text": planPoker.creator + " started a planning poker: *" + planPoker.title + "*",
-            "attachments": [
-                {
-                    "text": text,
-                    "fallback": "Shame... buttons aren't supported in this land",
-                    "callback_id": "plan-poker",
-                    "color": Constants.SLACK_COLOR,
-                }
-            ]
+            "attachments": attachmentsList
         };
         return message;
     },
@@ -156,13 +158,20 @@ function createPlanPokerActions(numbers){
     return actions;
 }
 
-function buildMostVotedMsg(maxMap){
-    let result = "\nMost voted: *" + maxMap.vote + " point";
-    if(parseInt(maxMap) !== 1){
+function buildMostVotedAttachment(finished){
+    let result = "\nMost voted: *" + finished.max.vote + " point";
+    if(parseInt(finished.max) !== 1){
         result += "s";
     }
     result += "*";
-    return result;
+    result += buildAllSameMsg(finished.allSame);
+
+    return {
+        "text": result,
+        "fallback": result,
+        "callback_id": "plan-poker",
+        "color": Constants.SLACK_COLOR,
+    };
 }
 
 function buildAllSameMsg(allSame){
