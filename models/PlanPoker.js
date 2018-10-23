@@ -47,6 +47,7 @@ class PlanPoker {
                 }
             }
         }
+        result.counts = counts;
         result.max = maxVal;
         result.allSame = false;
         // We ignore the votes being the same if there's only 1 vote

@@ -9,6 +9,7 @@ var logger = require('morgan');
 var commandsRouter = require('./routes/commands');
 var actionsRouter = require('./routes/actions');
 var signupRouter = require('./routes/signup');
+var testRouter = require('./routes/test');
 
 var app = express();
 
@@ -28,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/slack/commands', commandsRouter);
 app.use('/slack/actions', actionsRouter);
 app.use('/slack/signup', signupRouter);
+
+app.use('test', testRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
