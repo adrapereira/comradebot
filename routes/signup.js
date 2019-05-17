@@ -14,7 +14,6 @@ router.get('/', function(req, res) {
         client_secret: process.env.CLIENT_SECRET,
         code: code
     }).then(function(data){
-        console.log(data);
         const team = new Team(data.team_id, data.team_name, data.access_token);
         dbService.updateItem(team);
     }).catch(console.log);

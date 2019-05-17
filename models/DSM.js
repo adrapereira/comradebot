@@ -40,7 +40,6 @@ class DSM {
     }
 
     start() {
-        console.log("dsm=start");
         let userIds = Object.keys(this.participants);
         _.shuffle(userIds);
         this.meeting.participantsLeft = userIds;
@@ -48,17 +47,12 @@ class DSM {
     }
 
     nextParticipant() {
-        console.log("dsm=nextParticipant");
         const now = _.now();
-        console.log("before: ");
-        console.log(this);
         if (this.meeting.currentSpeaker) {
-            console.log("there is a currentSpeaker");
             this.participants[this.meeting.currentSpeaker].time = formatTimeDifference(now, this.meeting.currentSpeakerStartTime);
             this.meeting.participantsDone.push(this.meeting.currentSpeaker);
         }
         if (this.meeting.participantsLeft.length > 0) {
-            console.log("there is participants left");
             this.meeting.currentSpeaker = this.meeting.participantsLeft.pop();
             this.meeting.currentSpeakerStartTime = now;
             return true;
@@ -66,8 +60,6 @@ class DSM {
             this.meeting.currentSpeaker = null;
             this.meeting.currentSpeakerStartTime = null;
         }
-        console.log("after: ");
-        console.log(this);
         return false;
     }
 

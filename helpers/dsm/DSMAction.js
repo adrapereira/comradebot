@@ -44,11 +44,7 @@ module.exports = {
                     });
                     break;
                 case 'endTurn':
-                    console.log("endTurn");
-
                     if (dsm.meeting.currentSpeaker === user.id) {
-                        console.log("speaker is the same");
-
                         const participantsLeft = dsm.nextParticipant();
                         dsmSlackComms.deleteEphemeral(responseURL);
                         if (participantsLeft) {

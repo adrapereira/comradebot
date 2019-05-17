@@ -14,7 +14,6 @@ module.exports = {
             }
         };
         const text = JSON.stringify(json);
-        console.log('Encrypting for URL: ' + text);
         return this.encrypt(text);
     },
     encrypt(text) {

@@ -48,8 +48,7 @@ router.post('/dsm', urlencodedParser, function (req, res) {
         res.status(403).end("Access forbidden")
     } else {
         res.status(200).end(); // best practice to respond with empty 200 status code
-        const id = crypto.randomBytes(16).toString("hex");
-        console.log({id});
+        const id = crypto.randomBytes(16).toString("hex");;
         dbService.getItem(reqBody.team_id, function (dbItem) {
             let team = new Team();
             team.mapObjectToThis(dbItem);
@@ -63,16 +62,12 @@ router.post('/dsm', urlencodedParser, function (req, res) {
 });
 
 router.get('/dsm', urlencodedParser, function (req, res) {
-    console.log("############################");
-    console.log(req);
-    console.log("############################");
     const decryptedString = DSMCrypto.decrypt(req.query.d);
     const dsmData = JSON.parse(decryptedString);
 
     ItemList.get(dsmData.id).then(function (item) {
         const dsm = new DSM();
         dsm.mapObjectToThis(item);
-        console.log("addParticipant: " + dsmData.user.id);
         dsm.addParticipant(dsmData.user);
         res.status(301).redirect(item.link);
     }).catch(console.log);
