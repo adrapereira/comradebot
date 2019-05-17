@@ -1,6 +1,8 @@
 # comradebot
 Slack bot to help manage Scrum ceremonies - DSM, Plan Poker, etc.
 
+<a href="https://slack.com/oauth/authorize?client_id=398662978112.398824341985&scope=commands,chat:write:bot,channels:read,groups:read,users:read"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"></a>
+
 ## Planning Poker
 To start a planning poker call the command `/pp` or `/planpoker` followed by the title of the voting. 
 This will trigger a message by the bot calling all users in the channel to vote on the topic.
